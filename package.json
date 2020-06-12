@@ -10,15 +10,20 @@
     "gatsby-plugin-manifest": "^2.4.9",
     "gatsby-plugin-offline": "^3.2.7",
     "gatsby-plugin-react-helmet": "^3.3.2",
+    "gatsby-plugin-react-native-web": "^3.1.0",
     "gatsby-plugin-sharp": "^2.6.9",
     "gatsby-source-filesystem": "^2.3.8",
     "gatsby-transformer-sharp": "^2.5.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.0.0"
+    "react-helmet": "^6.0.0",
+    "react-native-responsive-dimensions": "^3.1.1",
+    "react-native-web": "^0.12.3"
   },
   "devDependencies": {
+    "@types/react-native": "^0.62.13",
+    "babel-preset-expo": "^8.2.1",
     "prettier": "2.0.5"
   },
   "keywords": [
