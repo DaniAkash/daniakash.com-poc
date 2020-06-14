@@ -38,7 +38,7 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
   type validKeyType = keyof typeof args
 
   type ICustomStyleProps = {
-    [key in validKeyType]: ViewStyle | TextStyle | ImageStyle | any
+    [key in validKeyType]?: ViewStyle | TextStyle | ImageStyle | any
   }
 
   type LayoutProps = {

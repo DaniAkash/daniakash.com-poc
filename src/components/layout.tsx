@@ -18,7 +18,7 @@ import "./layout.css"
 import {
   useLayoutStyle,
   Layout as LayoutComp,
-} from "../LayoutEngine/LayoutEngine"
+} from "../LayoutEngine/Layout/PrimaryLayout"
 
 export interface LayoutProps {
   children: ReactNode
@@ -53,8 +53,6 @@ const Layout = ({ children }: LayoutProps) => {
 const TextComp = ({ text }) => {
   console.log("re-rendering")
   const style = useLayoutStyle({
-    color: "white",
-    height: 200,
     mobile: {
       backgroundColor: "black",
     },
@@ -62,8 +60,8 @@ const TextComp = ({ text }) => {
       backgroundColor: "green",
     },
     desktop: {
-      backgroundColor: "yellow"
-    }
+      backgroundColor: "yellow",
+    },
   })
   console.log(style)
   return <Text style={style}>{text}</Text>
@@ -73,7 +71,7 @@ const styles = StyleSheet.create({
   pageContainer: {
     height: "100vh",
     width: "100vw",
-    backgroundColor: "red"
+    backgroundColor: "red",
   },
   layoutContainer: {
     flex: 1,
