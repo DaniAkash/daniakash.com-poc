@@ -5,6 +5,8 @@ import {
   ImageStyle,
   PixelRatio,
   Platform,
+  StyleSheet,
+  Dimensions,
 } from "react-native"
 import { useDimension, useDimensionDelayConfig } from "./hooks/useDimension"
 import { isLayoutMatched } from "./utils/isLayoutMatched"
@@ -115,8 +117,50 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
     return null
   }
 
+  const LayoutStyleSheet = {
+    ...StyleSheet,
+    create: <
+      S extends {
+        [key: string]: ViewStyle | TextStyle | ImageStyle
+      }
+    >(
+      styles: S
+    ) => {
+      const keys = Object.keys(styles)
+      const newStyles = {}
+      keys.forEach(key => {
+        const individualStyle = styles[key]
+        let newIndividualStyle = {}
+        for (let each in individualStyle) {
+          const dimension = args[each]
+          const { width, height } = Dimensions.get("window")
+          const orientation: deviceOrientationType =
+            width > height ? "landscape" : "portrait"
+          if (!dimension) newIndividualStyle[each] = individualStyle[each]
+          else if (
+            isLayoutMatched(dimension, {
+              height,
+              width,
+              orientation,
+              pixelRatio,
+              platform,
+            })
+          ) {
+            newIndividualStyle = {
+              ...newIndividualStyle,
+              ...individualStyle[each],
+            }
+          }
+        }
+        newStyles[key] = newIndividualStyle
+      })
+      return StyleSheet.create(newStyles) as S
+    },
+  }
+
   return {
     useLayoutStyle,
     Layout,
+    LayoutStyleSheet,
   }
 }

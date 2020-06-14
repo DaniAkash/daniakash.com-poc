@@ -1,6 +1,6 @@
 import { createLayout } from "../LayoutEngine"
 
-export const { useLayoutStyle, Layout } = createLayout({
+export const { useLayoutStyle, Layout, LayoutStyleSheet } = createLayout({
   mobile: {
     maxWidth: 480,
   },

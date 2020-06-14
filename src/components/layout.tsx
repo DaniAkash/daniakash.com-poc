@@ -18,6 +18,7 @@ import "./layout.css"
 import {
   useLayoutStyle,
   Layout as LayoutComp,
+  LayoutStyleSheet,
 } from "../LayoutEngine/Layout/PrimaryLayout"
 
 export interface LayoutProps {
@@ -36,7 +37,7 @@ const Layout = ({ children }: LayoutProps) => {
   `)
 
   return (
-    <View style={[styles.pageContainer]}>
+    <View style={styles.pageContainer}>
       <LayoutComp mode={["desktop"]}>
         <TextComp text={"desktop"} />
       </LayoutComp>
@@ -67,11 +68,19 @@ const TextComp = ({ text }) => {
   return <Text style={style}>{text}</Text>
 }
 
-const styles = StyleSheet.create({
+const styles = LayoutStyleSheet.create({
   pageContainer: {
     height: "100vh",
     width: "100vw",
-    backgroundColor: "red",
+    mobile: {
+      backgroundColor: "red",
+    },
+    desktop: {
+      backgroundColor: "pink",
+    },
+    tablet: {
+      backgroundColor: "orange",
+    },
   },
   layoutContainer: {
     flex: 1,
