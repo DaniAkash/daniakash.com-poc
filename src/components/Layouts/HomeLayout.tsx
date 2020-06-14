@@ -33,7 +33,7 @@ const HomeLayout = ({ children }: LayoutProps) => {
 
   return (
     <View style={styles.pageContainer}>
-      <ProfileCard data={data} />
+      {/* <ProfileCard data={data} /> */}
       {children}
     </View>
   )
