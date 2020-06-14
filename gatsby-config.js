@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Dani Akash`,
+    description: `Writer • Speaker • Hacker`,
+    author: `@dani_akash_`,
+    copyright: `© All rights reserved.`,
   },
   plugins: [
     `gatsby-plugin-react-native-web`,

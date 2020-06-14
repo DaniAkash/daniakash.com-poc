@@ -59,8 +59,9 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
     let resultStyle: any = {}
     for (let each in layoutStyles) {
       const dimension = args[each]
-      if (!dimension) resultStyle[each] = layoutStyles[each]
-      else if (
+      if (!dimension) {
+        resultStyle[each] = layoutStyles[each]
+      } else if (
         isLayoutMatched(dimension, {
           height,
           width,
@@ -92,7 +93,7 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
     if (Array.isArray(mode)) {
       mode.forEach(type => {
         const dimension = args[type]
-        if (dimension)
+        if (dimension) {
           isVisible = isLayoutMatched(dimension, {
             height,
             width,
@@ -100,10 +101,11 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
             pixelRatio,
             platform,
           })
+        }
       })
     } else {
       const dimension = args[mode]
-      if (dimension)
+      if (dimension) {
         isVisible = isLayoutMatched(dimension, {
           height,
           width,
@@ -111,9 +113,12 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
           pixelRatio,
           platform,
         })
+      }
     }
 
-    if (isVisible) return <Fragment>{children}</Fragment>
+    if (isVisible) {
+      return <Fragment>{children}</Fragment>
+    }
     return null
   }
 
@@ -130,14 +135,15 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
       const newStyles = {}
       keys.forEach(key => {
         const individualStyle = styles[key]
-        let newIndividualStyle = {}
+        let newIndividualStyle: any = {}
         for (let each in individualStyle) {
           const dimension = args[each]
           const { width, height } = Dimensions.get("window")
           const orientation: deviceOrientationType =
             width > height ? "landscape" : "portrait"
-          if (!dimension) newIndividualStyle[each] = individualStyle[each]
-          else if (
+          if (!dimension) {
+            newIndividualStyle[each] = individualStyle[each]
+          } else if (
             isLayoutMatched(dimension, {
               height,
               width,
