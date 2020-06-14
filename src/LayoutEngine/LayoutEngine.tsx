@@ -1,28 +1,41 @@
 import React, { Fragment, ReactNode } from "react"
 import {
-  useResponsiveWidth,
-} from "react-native-responsive-dimensions"
-import { ViewStyle, TextStyle, ImageStyle } from "react-native"
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+  PixelRatio,
+  Platform,
+} from "react-native"
+import { useDimension, useDimensionDelayConfig } from "./hooks/useDimension"
+import { isLayoutMatched } from "./utils/isLayoutMatched"
 
 export interface LayoutEngineProps {
   children: ReactNode
 }
 
-export const MOBILE_WIDTH: [number, number] = [0, 480]
+export type deviceOrientationType = "portrait" | "landscape"
 
-export const TABLET_WIDTH: [number, number] = [481, 1024]
-
-export const DESKTOP_WIDTH: [number, number] = [1025, Infinity]
-
-export type layoutWidthType = {
-  width?: [number, number]
+export type layoutConfigType = {
   maxWidth?: number
   minWidth?: number
+  maxHeight?: number
+  minHeight?: number
+  minAspectRatio?: number
+  maxAspectRatio?: number
+  minPixelRatio?: number
+  maxPixelRatio?: number
+  orientation?: deviceOrientationType
+  platform?: typeof Platform.OS
+  condition?: boolean
 }
 
-export const createLayout = (args: { [key: string]: layoutWidthType }) => {
+const pixelRatio = PixelRatio.get()
+const platform = Platform.OS
 
-  type validKeyType = keyof typeof args;
+export const createLayout = <T extends { [key: string]: layoutConfigType }>(
+  args: T
+) => {
+  type validKeyType = keyof typeof args
 
   type ICustomStyleProps = {
     [key in validKeyType]: ViewStyle | TextStyle | ImageStyle | any
@@ -31,68 +44,71 @@ export const createLayout = (args: { [key: string]: layoutWidthType }) => {
   type LayoutProps = {
     children: ReactNode
     mode: validKeyType | validKeyType[]
+    timeoutDelay?: useDimensionDelayConfig
   }
 
-  const useLayoutStyle = (layoutStyles: ICustomStyleProps) => {
-    const width = useResponsiveWidth(100);
-    let resultStyle: object = {};
-    for(let each in layoutStyles) {
-      const dimension = args[each];
-      if(!dimension) resultStyle[each] = layoutStyles[each];
-      else {
-        if (dimension.width) {
-          if (width >= dimension.width[0] && width <= dimension.width[1]) {
-            resultStyle = {
-              ...resultStyle,
-              ...layoutStyles[each]
-            }
-          }
-        }
-        if (dimension.maxWidth) {
-          if (width <= dimension.maxWidth) {
-            resultStyle = {
-              ...resultStyle,
-              ...layoutStyles[each]
-            }
-          }
-        }
-        if (dimension.minWidth) {
-          if (width >= dimension.minWidth) {
-            resultStyle = {
-              ...resultStyle,
-              ...layoutStyles[each]
-            }
-          }
+  const useLayoutStyle = (
+    layoutStyles: ICustomStyleProps,
+    timeoutConfig?: useDimensionDelayConfig
+  ) => {
+    const { width, height } = useDimension(timeoutConfig)
+    const orientation: deviceOrientationType =
+      width > height ? "landscape" : "portrait"
+    let resultStyle: any = {}
+    for (let each in layoutStyles) {
+      const dimension = args[each]
+      if (!dimension) resultStyle[each] = layoutStyles[each]
+      else if (
+        isLayoutMatched(dimension, {
+          height,
+          width,
+          orientation,
+          pixelRatio,
+          platform,
+        })
+      ) {
+        resultStyle = {
+          ...resultStyle,
+          ...layoutStyles[each],
         }
       }
     }
-    return resultStyle;
+    return resultStyle
   }
 
-  const Layout = ({ children, mode }: LayoutProps) => {
+  const Layout = ({
+    children,
+    mode,
+    timeoutDelay = { timeout: 0 },
+  }: LayoutProps) => {
     let isVisible = false
 
-    const width = useResponsiveWidth(100)
+    const { width, height } = useDimension(timeoutDelay)
+    const orientation: deviceOrientationType =
+      width > height ? "landscape" : "portrait"
 
     if (Array.isArray(mode)) {
       mode.forEach(type => {
         const dimension = args[type]
-        if (dimension.width) {
-          if (width >= dimension.width[0] && width <= dimension.width[1]) {
-            isVisible = true
-          }
-        }
-        if (dimension.maxWidth) {
-          if (width <= dimension.maxWidth) {
-            isVisible = true
-          }
-        }
-        if (dimension.minWidth) {
-          if (width >= dimension.minWidth) {
-            isVisible = true
-          }
-        }
+        if (dimension)
+          isVisible = isLayoutMatched(dimension, {
+            height,
+            width,
+            orientation,
+            pixelRatio,
+            platform,
+          })
       })
+    } else {
+      const dimension = args[mode]
+      if (dimension)
+        isVisible = isLayoutMatched(dimension, {
+          height,
+          width,
+          orientation,
+          pixelRatio,
+          platform,
+        })
     }
 
     if (isVisible) return <Fragment>{children}</Fragment>
@@ -104,15 +120,3 @@ export const createLayout = (args: { [key: string]: layoutWidthType }) => {
     Layout,
   }
 }
-
-export const { useLayoutStyle, Layout } = createLayout({
-  mobile: {
-    width: MOBILE_WIDTH,
-  },
-  tablet: {
-    width: TABLET_WIDTH,
-  },
-  desktop: {
-    width: DESKTOP_WIDTH,
-  },
-})
