@@ -4,6 +4,29 @@ module.exports = {
     description: `Writer • Speaker • Hacker`,
     author: `@dani_akash_`,
     copyright: `© All rights reserved.`,
+    trivia: [
+      "I sometimes code while listening to music",
+      "I learnt javascript cuz I wanted to do form validation",
+      "☝This display pic was taken so many years ago...",
+    ],
+    menu: [
+      {
+        label: "blog",
+        path: "/",
+      },
+      {
+        label: "about",
+        path: "/about",
+      },
+      {
+        label: "talks",
+        path: "/talks",
+      },
+      {
+        label: "projects",
+        path: "/projects",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-react-native-web`,

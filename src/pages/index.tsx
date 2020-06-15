@@ -6,6 +6,7 @@ import { View, Text, ScrollView, StyleSheet, Animated } from "react-native"
 import SEO from "../components/seo"
 
 import useColors from "../hooks/useColors"
+import { useStaticQuery, graphql } from "gatsby"
 import { HERO_FONT, HIGHLIGHT_FONT, INFO_FONT } from "../assets/styles/fonts"
 import HomeHeader, { HEADER_HEIGHT } from "../components/Common/HomeHeader"
 
@@ -14,9 +15,29 @@ const { createAnimatedComponent, Value, event } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
 const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+          description
+          author
+          copyright
+          menu {
+            label
+            path
+          }
+          trivia
+        }
+      }
+    }
+  `)
+
   const animatedScrollIndex = useRef(new Value(0)).current
 
   const colors = useColors()
+
+  const { siteMetadata } = data.site
 
   return (
     <HomeLayout>
@@ -47,7 +68,7 @@ const IndexPage = () => {
         })}
         <Text>END of Scroll!</Text>
       </AnimatedScrollView>
-      <HomeHeader animatedValue={animatedScrollIndex} />
+      <HomeHeader {...siteMetadata} animatedValue={animatedScrollIndex} />
     </HomeLayout>
   )
 }

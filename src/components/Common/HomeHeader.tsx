@@ -6,34 +6,50 @@ import {
   Image,
   LayoutChangeEvent,
 } from "react-native"
-import {
-  useResponsiveWidth,
-  useResponsiveHeight,
-} from "react-native-responsive-dimensions"
+import { useResponsiveWidth } from "react-native-responsive-dimensions"
 import { H1, P } from "@expo/html-elements"
 import { HERO_FONT, HIGHLIGHT_FONT, INFO_FONT } from "../../assets/styles/fonts"
 import useColors from "../../hooks/useColors"
+import NavBar, { MenuType } from "./NavBar"
 
 const { createAnimatedComponent, Value } = Animated
 
 const AnimatedView = createAnimatedComponent(View)
 const AnimatedH1 = createAnimatedComponent(H1)
 const AnimatedImage = createAnimatedComponent(Image)
+const AnimatedP = createAnimatedComponent(P)
 
 export const HEADER_HEIGHT = 280
+export const STICKY_HEADER_HEIGHT = 48
 
 type HeaderProps = {
   animatedValue: Animated.Value
+  title: string
+  description: string
+  trivia: string[]
+  menu: MenuType[]
+  copyright: string
 }
 
-const HomeHeader = ({ animatedValue }: HeaderProps) => {
+const HomeHeader = ({
+  animatedValue,
+  title,
+  description,
+  trivia,
+  menu,
+  copyright,
+}: HeaderProps) => {
   const range = [0, HEADER_HEIGHT]
 
   const [titleWidth, setTitleWidth] = useState(136)
+  const [titleHeight, setTitleHeight] = useState(48)
 
-  const interpolator = (outputRange: [number, number]) =>
+  const interpolator = (
+    outputRange: [number, number],
+    customInputRange?: [number, number]
+  ) =>
     animatedValue.interpolate({
-      inputRange: range,
+      inputRange: customInputRange || range,
       outputRange: outputRange,
       extrapolate: "clamp",
     })
@@ -41,11 +57,19 @@ const HomeHeader = ({ animatedValue }: HeaderProps) => {
   const colors = useColors()
 
   const width = useResponsiveWidth(100)
-  const height = useResponsiveHeight(100)
 
   const onTitleLayout = (event: LayoutChangeEvent) => {
-    const { width: titleTextWidth } = event.nativeEvent.layout
+    const {
+      width: titleTextWidth,
+      height: titleTextHeight,
+    } = event.nativeEvent.layout
+    setTitleHeight(titleTextHeight)
     setTitleWidth(titleTextWidth)
+  }
+
+  const disapper = {
+    transform: [{ translateY: interpolator([0, 24]) }],
+    opacity: interpolator([1, 0], [0, HEADER_HEIGHT / 6]),
   }
 
   return (
@@ -84,47 +108,37 @@ const HomeHeader = ({ animatedValue }: HeaderProps) => {
           styles.pageTitle,
           {
             left: interpolator([16 + 24 + 90, width / 2 - titleWidth / 2]),
-            margin: 0,
-            padding: 0,
+            top: interpolator([24, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
+            color: colors.backgroundColor,
           },
-          { top: interpolator([24, -8]), color: colors.backgroundColor },
         ]}
         onLayout={onTitleLayout}
       >
-        Dani Akash
+        {title}
       </AnimatedH1>
-      <P
-        style={[
-          styles.infoText,
-          { color: colors.backgroundColor },
-          {
-            left: 16 + 24 + 90,
-            margin: 0,
-            padding: 0,
-            top: 24 + 8 + 48,
-          },
-        ]}
+      <AnimatedP
+        style={[styles.infoText, { color: colors.backgroundColor }, disapper]}
       >
-        Writer · Speaker · Hacker
-      </P>
-      <P
+        {description}
+      </AnimatedP>
+      <AnimatedP
+        numberOfLines={2}
+        ellipsizeMode={"tail"}
         style={[
           styles.triviaText,
           {
             color: colors.backgroundColor,
-          },
-          {
-            left: 24,
-            margin: 0,
-            padding: 0,
-            top: 24 + 24 + 90,
             width: width - 48,
           },
+          disapper,
         ]}
       >
-        I sometimes code while listening to music
-      </P>
-      <P>copyright</P>
+        {trivia[Math.floor(Math.random() * trivia.length)]}
+      </AnimatedP>
+      <AnimatedView style={[styles.navbar, disapper]}>
+        <NavBar menu={menu} />
+      </AnimatedView>
+      <P>{copyright}</P>
     </>
   )
 }
@@ -141,17 +155,25 @@ const styles = StyleSheet.create({
     position: "absolute",
     fontFamily: HERO_FONT,
     fontSize: 48,
+    marginVertical: 0,
+    lineHeight: 48,
   },
   infoText: {
     position: "absolute",
     fontFamily: HIGHLIGHT_FONT,
     fontSize: 16,
+    left: 16 + 24 + 90,
+    marginVertical: 0,
+    top: 24 + 8 + 48,
   },
   triviaText: {
     position: "absolute",
     fontFamily: INFO_FONT,
     fontSize: 24,
     textAlign: "center",
+    left: 24,
+    marginVertical: 0,
+    top: 24 + 16 + 90,
   },
   profilePic: {
     position: "absolute",
@@ -160,7 +182,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: 48,
+    height: STICKY_HEADER_HEIGHT,
+  },
+  navbar: {
+    position: "absolute",
+    top: 24 + 24 + 90 + 72,
   },
 })
 
