@@ -9,7 +9,7 @@ import React, { ReactNode } from "react"
 import { View, StyleSheet } from "react-native"
 import { useStaticQuery, graphql } from "gatsby"
 import ProfileCard from "../ProfileCard"
-import "../../assets/global.css"
+import "../../assets/styles/global.css"
 
 export interface LayoutProps {
   children: ReactNode
