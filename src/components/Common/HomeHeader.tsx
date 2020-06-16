@@ -37,7 +37,6 @@ const HomeHeader = ({
   description,
   trivia,
   menu,
-  copyright,
 }: HeaderProps) => {
   const range = [0, HEADER_HEIGHT]
 
@@ -78,6 +77,7 @@ const HomeHeader = ({
         style={[
           styles.headerBar,
           {
+            height: interpolator([0, STICKY_HEADER_HEIGHT]),
             opacity: interpolator([0, 1]),
             width,
             backgroundColor: colors.color5,
@@ -138,7 +138,6 @@ const HomeHeader = ({
       <AnimatedView style={[styles.navbar, disapper]}>
         <NavBar menu={menu} />
       </AnimatedView>
-      <P>{copyright}</P>
     </>
   )
 }
@@ -182,7 +181,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: STICKY_HEADER_HEIGHT,
   },
   navbar: {
     position: "absolute",

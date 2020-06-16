@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native"
 import { Link } from "gatsby"
 import { useResponsiveWidth } from "react-native-responsive-dimensions"
@@ -24,7 +24,7 @@ const NavBar = ({ menu, containerStyle }: NavBarProps) => {
     <View style={[styles.navbar, { width }, { containerStyle }]}>
       {menu.map((item, itemIndex) => {
         return (
-          <>
+          <Fragment key={itemIndex}>
             <style>
               {`a.${item.label}${itemIndex} {
                 color: ${colors.backgroundColor};
@@ -42,12 +42,11 @@ const NavBar = ({ menu, containerStyle }: NavBarProps) => {
             <Link
               className={`${item.label}${itemIndex}`}
               activeClassName={`active`}
-              key={itemIndex}
               to={item.path}
             >
               {item.label}
             </Link>
-          </>
+          </Fragment>
         )
       })}
     </View>

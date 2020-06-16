@@ -1,14 +1,13 @@
 import React, { useRef } from "react"
-import { Link } from "gatsby"
-
 import HomeLayout from "../components/Layouts/HomeLayout"
-import { View, Text, ScrollView, StyleSheet, Animated } from "react-native"
+import { View, ScrollView, StyleSheet, Animated } from "react-native"
 import SEO from "../components/seo"
 
 import useColors from "../hooks/useColors"
 import { useStaticQuery, graphql } from "gatsby"
-import { HERO_FONT, HIGHLIGHT_FONT, INFO_FONT } from "../assets/styles/fonts"
 import HomeHeader, { HEADER_HEIGHT } from "../components/Common/HomeHeader"
+import PostSummary from "../components/Common/PostSummary"
+import BlankSpacer from "react-native-blank-spacer"
 
 const { createAnimatedComponent, Value, event } = Animated
 
@@ -59,14 +58,16 @@ const IndexPage = () => {
           },
         ])}
       >
-        {Array.from({ length: 1000 }, (_, i) => {
+        <BlankSpacer height={48} />
+        {Array.from({ length: 10 }, (_, i) => {
           return (
             <View key={i}>
-              <Text>Hello...</Text>
+              <PostSummary containerStyle={styles.postContainer} />
+              <BlankSpacer height={24} />
             </View>
           )
         })}
-        <Text>END of Scroll!</Text>
+        <BlankSpacer height={24} />
       </AnimatedScrollView>
       <HomeHeader {...siteMetadata} animatedValue={animatedScrollIndex} />
     </HomeLayout>
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
   },
+  postContainer: { marginHorizontal: 24 },
 })
 
 export default IndexPage
