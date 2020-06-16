@@ -4,6 +4,7 @@ export const {
   useLayoutStyle: usePrimaryLayoutStyle,
   Layout: PrimaryLayout,
   LayoutStyleSheet: PrimaryLayoutStyleSheet,
+  useCurrentLayout: useCurrentPrimaryLayout,
 } = createLayout({
   mobile: {
     maxWidth: 480,

@@ -136,25 +136,27 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
       keys.forEach(key => {
         const individualStyle = styles[key]
         let newIndividualStyle: any = {}
-        for (let each in individualStyle) {
-          const dimension = args[each]
-          const { width, height } = Dimensions.get("window")
-          const orientation: deviceOrientationType =
-            width > height ? "landscape" : "portrait"
-          if (!dimension) {
-            newIndividualStyle[each] = individualStyle[each]
-          } else if (
-            isLayoutMatched(dimension, {
-              height,
-              width,
-              orientation,
-              pixelRatio,
-              platform,
-            })
-          ) {
-            newIndividualStyle = {
-              ...newIndividualStyle,
-              ...individualStyle[each],
+        if (individualStyle) {
+          for (let each in individualStyle) {
+            const dimension = args[each]
+            const { width, height } = Dimensions.get("window")
+            const orientation: deviceOrientationType =
+              width > height ? "landscape" : "portrait"
+            if (!dimension) {
+              newIndividualStyle[each] = individualStyle[each]
+            } else if (
+              isLayoutMatched(dimension, {
+                height,
+                width,
+                orientation,
+                pixelRatio,
+                platform,
+              })
+            ) {
+              newIndividualStyle = {
+                ...newIndividualStyle,
+                ...individualStyle[each],
+              }
             }
           }
         }
@@ -164,9 +166,35 @@ export const createLayout = <T extends { [key: string]: layoutConfigType }>(
     },
   }
 
+  const useCurrentLayout = (
+    { timeout = 150 }: useDimensionDelayConfig = {
+      timeout: 150,
+    }
+  ) => {
+    const { width, height } = useDimension({ timeout })
+    const orientation: deviceOrientationType =
+      width > height ? "landscape" : "portrait"
+    for (let each in args) {
+      const dimension = args[each]
+      if (
+        isLayoutMatched(dimension, {
+          height,
+          width,
+          orientation,
+          pixelRatio,
+          platform,
+        })
+      ) {
+        return each
+      }
+    }
+    return false
+  }
+
   return {
     useLayoutStyle,
     Layout,
     LayoutStyleSheet,
+    useCurrentLayout,
   }
 }
