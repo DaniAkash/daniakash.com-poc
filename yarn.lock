@@ -13451,6 +13451,11 @@ react-native-appearance@^0.3.4:
     invariant "^2.2.4"
     use-subscription "^1.0.0"
 
+react-native-blank-spacer@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-blank-spacer/-/react-native-blank-spacer-0.0.2.tgz#b4fbe291e5acf39c9e8355cd9d2fdec56ab9757b"
+  integrity sha512-dJ1HqORe1ax9+ydp65/ixFHJgqZYPrPLTBh6URuDfUF8PiTvcgNntyomSeD0cqWUlgSGUJbvNZ1qprmxwht4Fg==
+
 react-native-responsive-dimensions@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-native-responsive-dimensions/-/react-native-responsive-dimensions-3.1.1.tgz#c4daf977b30a909f21164de53a8ba4c9451efefc"
