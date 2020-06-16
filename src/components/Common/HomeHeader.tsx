@@ -103,18 +103,7 @@ const HomeHeader = ({
           </AnimatedText>
         </TouchableOpacity>
       </AnimatedView>
-      <View
-        style={{
-          position: "absolute",
-          top: 8,
-          right: -4,
-          transform: [
-            {
-              scale: 0.5,
-            },
-          ],
-        }}
-      >
+      <View style={styles.switchWrapper}>
         <Switch
           value={value}
           onChange={(newValue: boolean) => setValue(newValue)}
@@ -218,6 +207,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
+  },
+  switchWrapper: {
+    position: "absolute",
+    top: 8,
+    right: -4,
+    transform: [
+      {
+        scale: 0.5,
+      },
+    ],
   },
   hamburgerClicked: {
     position: "absolute",
