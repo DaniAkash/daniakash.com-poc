@@ -5,7 +5,10 @@ import {
   Animated,
   Image,
   LayoutChangeEvent,
+  Text,
+  TouchableOpacity,
 } from "react-native"
+import Switch from "expo-dark-mode-switch"
 import { useResponsiveWidth } from "react-native-responsive-dimensions"
 import { H1, P } from "@expo/html-elements"
 import { HERO_FONT, HIGHLIGHT_FONT, INFO_FONT } from "../../assets/styles/fonts"
@@ -18,6 +21,7 @@ const AnimatedView = createAnimatedComponent(View)
 const AnimatedH1 = createAnimatedComponent(H1)
 const AnimatedImage = createAnimatedComponent(Image)
 const AnimatedP = createAnimatedComponent(P)
+const AnimatedText = createAnimatedComponent(Text)
 
 export const HEADER_HEIGHT = 280
 export const STICKY_HEADER_HEIGHT = 48
@@ -42,6 +46,10 @@ const HomeHeader = ({
 
   const [titleWidth, setTitleWidth] = useState(136)
   const [titleHeight, setTitleHeight] = useState(48)
+  const [value, setValue] = useState(true)
+  const [hamburgerActive, setHamburgerActive] = useState(true)
+
+  const toggleHamburger = () => setHamburgerActive(!hamburgerActive)
 
   const interpolator = (
     outputRange: [number, number],
@@ -83,7 +91,36 @@ const HomeHeader = ({
             backgroundColor: colors.color5,
           },
         ]}
-      />
+      >
+        <TouchableOpacity
+          onPress={toggleHamburger}
+          style={[styles.hamburgerClicked, { top: 10, right: 64 }]}
+        >
+          <AnimatedText
+            style={[styles.hamburgerText, { fontSize: interpolator([0, 24]) }]}
+          >
+            🍔
+          </AnimatedText>
+        </TouchableOpacity>
+      </AnimatedView>
+      <View
+        style={{
+          position: "absolute",
+          top: 8,
+          right: -4,
+          transform: [
+            {
+              scale: 0.5,
+            },
+          ],
+        }}
+      >
+        <Switch
+          value={value}
+          onChange={(newValue: boolean) => setValue(newValue)}
+        />
+      </View>
+
       <View
         style={[
           styles.headerBackground,
@@ -181,6 +218,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
+  },
+  hamburgerClicked: {
+    position: "absolute",
+  },
+  hamburgerText: {
+    fontSize: 24,
   },
   navbar: {
     position: "absolute",

@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@expo/html-elements": "^0.0.0-alpha.5",
+    "expo-dark-mode-switch": "^0.0.1",
     "gatsby": "^2.22.15",
     "gatsby-image": "^2.4.5",
     "gatsby-plugin-manifest": "^2.4.9",
@@ -22,6 +23,7 @@
     "react-native-appearance": "^0.3.4",
     "react-native-blank-spacer": "^0.0.2",
     "react-native-responsive-dimensions": "^3.1.1",
+    "react-native-svg": "^12.1.0",
     "react-native-web": "^0.12.3"
   },
   "devDependencies": {
