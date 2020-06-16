@@ -94,7 +94,7 @@ const HomeHeader = ({
       >
         <TouchableOpacity
           onPress={toggleHamburger}
-          style={[styles.hamburgerClicked, { top: 10, right: 64 }]}
+          style={[styles.hamburgerClicked]}
         >
           <AnimatedText
             style={[styles.hamburgerText, { fontSize: interpolator([0, 24]) }]}
@@ -220,6 +220,8 @@ const styles = StyleSheet.create({
   },
   hamburgerClicked: {
     position: "absolute",
+    top: 10,
+    right: 64,
   },
   hamburgerText: {
     fontSize: 24,
