@@ -125,6 +125,7 @@ const MobileHomeHeader = ({
           { backgroundColor: colors.color4, width },
         ]}
       />
+      {/** TODO: Make Animated Image fluid */}
       <AnimatedImage
         style={[
           styles.profilePic,

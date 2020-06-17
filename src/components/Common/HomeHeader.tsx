@@ -52,6 +52,7 @@ const HomeHeader = ({
 
   return (
     <View style={[styles.homeHeaderContainer, containerStyle]}>
+      {/** TODO: Add a tooltip */}
       <A href={require("../../assets/images/profile-pic.jpg")}>
         <Img
           style={profilePicStyle}
