@@ -1,25 +1,64 @@
-import React from "react"
+import React, { useRef } from "react"
 import { HeaderProps } from "./Mobile/MobileHomeHeader"
-import { View, StyleSheet, Image } from "react-native"
+import { View, StyleSheet } from "react-native"
 import useColors from "../../hooks/useColors"
-import { H1, P } from "@expo/html-elements"
-import { HERO_FONT, INFO_FONT, HIGHLIGHT_FONT } from "../../assets/styles/fonts"
+import { H1, P, A } from "@expo/html-elements"
+import {
+  HERO_FONT,
+  INFO_FONT,
+  HIGHLIGHT_FONT,
+  READING_FONT,
+} from "../../assets/styles/fonts"
+import Img from "gatsby-image"
+import { useStaticQuery, graphql } from "gatsby"
+import NavBar from "./NavBar"
+import BlankSpacer from "react-native-blank-spacer"
 
 const HomeHeader = ({
   title,
   description,
   trivia,
   menu,
+  copyright,
   containerStyle,
 }: HeaderProps) => {
+  const triviaText = useRef(trivia[Math.floor(Math.random() * trivia.length)])
+    .current
+
+  const query = useStaticQuery(graphql`
+    query DesktopProfilePicQuery {
+      file(relativePath: { eq: "profile-pic.jpg" }) {
+        id
+        childImageSharp {
+          fluid {
+            base64
+            aspectRatio
+            sizes
+            src
+            srcSet
+          }
+        }
+      }
+    }
+  `)
+
   const colors = useColors()
+
+  const profilePicStyle = {
+    height: "175px",
+    width: "175px",
+    borderRadius: "24px",
+  }
 
   return (
     <View style={[styles.homeHeaderContainer, containerStyle]}>
-      <Image
-        style={styles.profilePic}
-        source={require("../../assets/images/profile-pic.jpg")}
-      />
+      <A href={require("../../assets/images/profile-pic.jpg")}>
+        <Img
+          style={profilePicStyle}
+          fluid={query.file.childImageSharp.fluid}
+          alt="dani-akash"
+        />
+      </A>
       <H1
         style={[
           styles.pageTitle,
@@ -40,6 +79,7 @@ const HomeHeader = ({
       >
         {description}
       </P>
+      <BlankSpacer height={16} />
       <P
         style={[
           styles.triviaText,
@@ -48,7 +88,13 @@ const HomeHeader = ({
           },
         ]}
       >
-        {trivia[Math.floor(Math.random() * trivia.length)]}
+        {triviaText}
+      </P>
+      <BlankSpacer height={16} />
+      <NavBar menu={menu} />
+      <BlankSpacer height={48} />
+      <P style={[styles.copyrightText, { color: colors.color2 }]}>
+        {copyright}
       </P>
     </View>
   )
@@ -56,11 +102,6 @@ const HomeHeader = ({
 
 const styles = StyleSheet.create({
   homeHeaderContainer: {},
-  profilePic: {
-    height: 175,
-    width: 175,
-    borderRadius: 24,
-  },
   pageTitle: {
     fontFamily: HERO_FONT,
     fontSize: 56,
@@ -78,7 +119,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginVertical: 0,
     maxWidth: 175,
-    marginTop: 16,
+  },
+  copyrightText: {
+    fontFamily: READING_FONT,
+    fontSize: 8,
+    marginVertical: 0,
+    maxWidth: 175,
   },
 })
 

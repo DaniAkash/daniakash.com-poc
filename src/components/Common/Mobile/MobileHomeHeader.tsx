@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import {
   View,
   StyleSheet,
@@ -49,6 +49,8 @@ const MobileHomeHeader = ({
   trivia,
   menu,
 }: HeaderProps) => {
+  const triviaText = useRef(trivia[Math.floor(Math.random() * trivia.length)])
+    .current
   const range = [0, HEADER_HEIGHT]
 
   const [titleWidth, setTitleWidth] = useState(136)
@@ -166,7 +168,7 @@ const MobileHomeHeader = ({
           disapper,
         ]}
       >
-        {trivia[Math.floor(Math.random() * trivia.length)]}
+        {triviaText}
       </AnimatedP>
       <AnimatedView style={[styles.navbar, disapper]}>
         <MobileNavBar menu={menu} />
@@ -201,11 +203,11 @@ const styles = StyleSheet.create({
   triviaText: {
     position: "absolute",
     fontFamily: INFO_FONT,
-    fontSize: 24,
+    fontSize: 14,
     textAlign: "center",
     left: 24,
     marginVertical: 0,
-    top: 24 + 16 + 90,
+    top: 24 + 36 + 90,
   },
   profilePic: {
     position: "absolute",
