@@ -97,7 +97,7 @@ const MobileHomeHeader = ({
             height: interpolator([0, STICKY_HEADER_HEIGHT]),
             opacity: interpolator([0, 1]),
             width,
-            backgroundColor: colors.color5,
+            backgroundColor: colors.color4,
           },
         ]}
       >

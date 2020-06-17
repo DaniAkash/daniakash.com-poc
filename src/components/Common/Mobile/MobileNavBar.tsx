@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native"
 import { Link } from "gatsby"
-import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
+import { READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
 import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
 
@@ -21,7 +21,7 @@ const MobileNavBar = ({ menu, containerStyle }: NavBarProps) => {
   const colors = useColors()
 
   return (
-    <View style={[styles.navbar, { width }, { containerStyle }]}>
+    <View style={[styles.navbar, { width }, containerStyle]}>
       {menu.map((item, itemIndex) => {
         return (
           <Fragment key={itemIndex}>
