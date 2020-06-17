@@ -8,11 +8,15 @@
 import React, { ReactNode, useRef } from "react"
 import { View, StyleSheet, Animated, ScrollView } from "react-native"
 import "../../assets/styles/global.css"
-import HomeHeader, { HEADER_HEIGHT } from "../Common/HomeHeader"
+import MobileHomeHeader, {
+  HEADER_HEIGHT,
+} from "../Common/Mobile/MobileHomeHeader"
 import { useStaticQuery, graphql } from "gatsby"
 import useColors from "../../hooks/useColors"
 import SEO from "../seo"
 import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
+import HomeHeader from "../Common/HomeHeader"
+import useResponsiveWidth from "../../hooks/useResponsiveWidth"
 
 const { createAnimatedComponent, Value, event } = Animated
 
@@ -47,6 +51,36 @@ const HomeLayout = ({ children }: LayoutProps) => {
   const { siteMetadata } = data.site
 
   const layout = useCurrentPrimaryLayout()
+  const desktopPadding = useResponsiveWidth(12)
+  const tabletPadding = useResponsiveWidth(8)
+  const padding = layout === "desktop" ? desktopPadding : tabletPadding
+
+  if (layout !== "mobile") {
+    return (
+      <View style={[styles.pageContainer, styles.desktopPageContainer]}>
+        <SEO title="Home" />
+        <HomeHeader
+          containerStyle={[
+            styles.desktopHeader,
+            {
+              paddingHorizontal: padding,
+            },
+          ]}
+          {...siteMetadata}
+        />
+        <ScrollView
+          contentContainerStyle={[
+            styles.desktopContentSection,
+            {
+              paddingRight: padding,
+            },
+          ]}
+        >
+          {children}
+        </ScrollView>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.pageContainer}>
@@ -70,7 +104,7 @@ const HomeLayout = ({ children }: LayoutProps) => {
       >
         {children}
       </AnimatedScrollView>
-      <HomeHeader {...siteMetadata} animatedValue={animatedScrollIndex} />
+      <MobileHomeHeader {...siteMetadata} animatedValue={animatedScrollIndex} />
     </View>
   )
 }
@@ -80,6 +114,13 @@ const styles = StyleSheet.create({
     height: "100vh",
     width: "100vw",
   },
+  desktopPageContainer: {
+    flexDirection: "row",
+  },
+  desktopHeader: {
+    alignSelf: "center",
+  },
+  desktopContentSection: {},
   scrollViewBodyContainer: {
     marginTop: HEADER_HEIGHT - 16,
     borderTopLeftRadius: 14,

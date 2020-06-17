@@ -38,13 +38,13 @@ const PostSummary = ({ containerStyle }: PostSummaryProps) => {
           Tech Talks
         </Link>
       </View>
-      <BlankSpacer height={8} />
+      <BlankSpacer height={16} />
       <View style={styles.titleSection}>
         <H2 style={[styles.title, { color: colors.color2 }]}>
           Visualize application state with XSTATE
         </H2>
       </View>
-      <BlankSpacer height={8} />
+      <BlankSpacer height={16} />
       <View style={styles.contentSection}>
         <P style={[styles.content, { color: colors.textColor }]}>
           A quick tutorial on how we can visualize complex states with Finite
@@ -52,7 +52,7 @@ const PostSummary = ({ containerStyle }: PostSummaryProps) => {
           quarantine.
         </P>
       </View>
-      <BlankSpacer height={8} />
+      <BlankSpacer height={16} />
       <View style={styles.linkSection}>
         <style>
           {`a.p-read-more {

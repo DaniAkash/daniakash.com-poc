@@ -1,9 +1,9 @@
 import React, { Fragment } from "react"
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native"
 import { Link } from "gatsby"
-import { useResponsiveWidth } from "react-native-responsive-dimensions"
-import { HERO_FONT, READING_FONT } from "../../assets/styles/fonts"
-import useColors from "../../hooks/useColors"
+import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
+import useColors from "../../../hooks/useColors"
+import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
 
 export type MenuType = {
   label: string
@@ -15,7 +15,7 @@ export type NavBarProps = {
   containerStyle?: StyleProp<ViewStyle>
 }
 
-const NavBar = ({ menu, containerStyle }: NavBarProps) => {
+const MobileNavBar = ({ menu, containerStyle }: NavBarProps) => {
   const width = useResponsiveWidth(100)
 
   const colors = useColors()
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NavBar
+export default MobileNavBar

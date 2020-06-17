@@ -12,7 +12,7 @@ const IndexPage = () => {
         return (
           <View key={i}>
             <PostSummary containerStyle={styles.postContainer} />
-            <BlankSpacer height={24} />
+            <BlankSpacer height={32} />
           </View>
         )
       })}
