@@ -95,23 +95,22 @@ const MobileHomeHeader = ({
           styles.headerBar,
           {
             height: interpolator([0, STICKY_HEADER_HEIGHT]),
-            opacity: interpolator([0, 1]),
+            opacity: interpolator([0, 0.9]),
             width,
-            backgroundColor: colors.color4,
+            backgroundColor: colors.backgroundColor,
           },
         ]}
+      />
+      <TouchableOpacity
+        onPress={toggleHamburger}
+        style={[styles.hamburgerClicked]}
       >
-        <TouchableOpacity
-          onPress={toggleHamburger}
-          style={[styles.hamburgerClicked]}
+        <AnimatedText
+          style={[styles.hamburgerText, { fontSize: interpolator([0, 24]) }]}
         >
-          <AnimatedText
-            style={[styles.hamburgerText, { fontSize: interpolator([0, 24]) }]}
-          >
-            🍔
-          </AnimatedText>
-        </TouchableOpacity>
-      </AnimatedView>
+          🍔
+        </AnimatedText>
+      </TouchableOpacity>
       <View style={styles.switchWrapper}>
         <Switch
           value={value}
@@ -122,7 +121,7 @@ const MobileHomeHeader = ({
       <View
         style={[
           styles.headerBackground,
-          { backgroundColor: colors.color4, width },
+          { backgroundColor: colors.backgroundColor, width },
         ]}
       />
       {/** TODO: Make Animated Image fluid */}
@@ -145,16 +144,14 @@ const MobileHomeHeader = ({
           {
             left: interpolator([16 + 24 + 90, width / 2 - titleWidth / 2]),
             top: interpolator([24, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
-            color: colors.backgroundColor,
+            color: colors.color4,
           },
         ]}
         onLayout={onTitleLayout}
       >
         {title}
       </AnimatedH1>
-      <AnimatedP
-        style={[styles.infoText, { color: colors.backgroundColor }, disapper]}
-      >
+      <AnimatedP style={[styles.infoText, { color: colors.color4 }, disapper]}>
         {description}
       </AnimatedP>
       <AnimatedP
@@ -163,7 +160,7 @@ const MobileHomeHeader = ({
         style={[
           styles.triviaText,
           {
-            color: colors.backgroundColor,
+            color: colors.color4,
             width: width - 48,
           },
           disapper,

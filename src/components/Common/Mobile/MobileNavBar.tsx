@@ -27,7 +27,7 @@ const MobileNavBar = ({ menu, containerStyle }: NavBarProps) => {
           <Fragment key={itemIndex}>
             <style>
               {`a.${item.label}${itemIndex} {
-                color: ${colors.backgroundColor};
+                color: ${colors.color4};
                 font-family: ${READING_FONT};
                 font-size: 18px;
               }
