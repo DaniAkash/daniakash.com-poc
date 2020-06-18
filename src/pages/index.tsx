@@ -3,12 +3,38 @@ import { View, StyleSheet } from "react-native"
 import PostSummary from "../components/Common/PostSummary"
 import BlankSpacer from "react-native-blank-spacer"
 import HomeLayout from "../components/Layouts/HomeLayout"
+import { useStaticQuery, graphql } from "gatsby"
 
 const IndexPage = () => {
+  const data = useStaticQuery(graphql`
+    query HomePageQuery {
+      allMarkdownRemark(
+        filter: { frontmatter: { layout: { eq: "post" }, draft: { ne: true } } }
+        sort: { order: DESC, fields: frontmatter___date }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              title
+              description
+              date
+              category
+              url
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const posts: any[] = data.allMarkdownRemark.edges.map(
+    (each: any) => each.node.frontmatter
+  )
+
   return (
     <HomeLayout>
       <BlankSpacer height={48} />
-      {Array.from({ length: 10 }, (_, i) => {
+      {posts.map((post, i) => {
         return (
           <View key={i}>
             <PostSummary containerStyle={styles.postContainer} />
