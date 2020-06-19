@@ -1,32 +1,35 @@
-// exports.createPages = ({ graphql, actions }) => {
-//   const { createPage } = actions
+const path = require("path")
 
-//   return new Promise(async (resolve, reject) => {
-//     const result = await graphql(`
-//       query createBlogPosts {
-//         allMarkdownRemark {
-//           nodes {
-//             frontmatter {
-//               path
-//             }
-//           }
-//         }
-//       }
-//     `)
-//     if (result.errors) {
-//       console.error(result.errors)
-//       reject(result.errors)
-//     }
-//     result.data.allMarkdownRemark.nodes.forEach(node => {
-//       const { path } = node.frontmatter
-//       createPage({
-//         path,
-//         component: () => null,
-//         context: {
-//           pathSlug: path,
-//         },
-//       })
-//     })
-//     resolve()
-//   })
-// }
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  const template = path.resolve("./src/components/Templates/Post.tsx")
+
+  const result = await graphql(`
+    query createBlogPosts {
+      allMarkdownRemark {
+        nodes {
+          frontmatter {
+            path
+          }
+        }
+      }
+    }
+  `)
+  if (result.errors) {
+    console.error(result.errors)
+    return
+  }
+  result.data.allMarkdownRemark.nodes.forEach(node => {
+    const { path: postPath } = node.frontmatter
+    if (postPath) {
+      createPage({
+        path: postPath,
+        component: template,
+        context: {
+          pathSlug: postPath,
+        },
+      })
+    }
+  })
+}
