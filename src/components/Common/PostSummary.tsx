@@ -6,12 +6,28 @@ import { ViewStyle } from "@expo/html-elements/build/primitives/View"
 import { READING_FONT } from "../../assets/styles/fonts"
 import useColors from "../../hooks/useColors"
 import BlankSpacer from "react-native-blank-spacer"
+import dayjs from "dayjs"
+import NativeLink from "./NativeLink"
 
 export type PostSummaryProps = {
   containerStyle: StyleProp<ViewStyle>
+  title: string
+  description: string
+  date: string
+  category: string
+  url: string
+  path: string
 }
 
-const PostSummary = ({ containerStyle }: PostSummaryProps) => {
+const PostSummary = ({
+  containerStyle,
+  title,
+  description,
+  date,
+  category,
+  url,
+  path,
+}: PostSummaryProps) => {
   const colors = useColors()
 
   return (
@@ -23,6 +39,13 @@ const PostSummary = ({ containerStyle }: PostSummaryProps) => {
         >
           April 2020
         </Time>
+        <NativeLink
+          style={[styles.categoryText, { color: colors.color5 }]}
+          hoveredStyle={{ color: colors.color2 }}
+          url={category}
+        >
+          {category}
+        </NativeLink>
         <style>
           {`a.p-summary-category {
           color: ${colors.color5};
@@ -40,16 +63,19 @@ const PostSummary = ({ containerStyle }: PostSummaryProps) => {
       </View>
       <BlankSpacer height={16} />
       <View style={styles.titleSection}>
-        <H2 style={[styles.title, { color: colors.color2 }]}>
-          Visualize application state with XSTATE
-        </H2>
+        <NativeLink
+          style={{ color: colors.color2 }}
+          hoveredStyle={{ color: colors.color4 }}
+          openNewTab
+          url={url || path}
+        >
+          <H2 style={[styles.title]}>{title}</H2>
+        </NativeLink>
       </View>
       <BlankSpacer height={16} />
       <View style={styles.contentSection}>
         <P style={[styles.content, { color: colors.textColor }]}>
-          A quick tutorial on how we can visualize complex states with Finite
-          State Machines & XSTATE. Third video for the people under self
-          quarantine.
+          {description}
         </P>
       </View>
       <BlankSpacer height={16} />
@@ -83,6 +109,11 @@ const styles = StyleSheet.create({
     fontFamily: READING_FONT,
     fontSize: 18,
     marginRight: 16,
+  },
+  categoryText: {
+    fontWeight: "bold",
+    fontSize: 14,
+    fontFamily: READING_FONT,
   },
   titleSection: {},
   title: {

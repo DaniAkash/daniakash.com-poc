@@ -20,6 +20,7 @@ const IndexPage = () => {
               date
               category
               url
+              path
             }
           }
         }
@@ -37,7 +38,7 @@ const IndexPage = () => {
       {posts.map((post, i) => {
         return (
           <View key={i}>
-            <PostSummary containerStyle={styles.postContainer} />
+            <PostSummary {...post} containerStyle={styles.postContainer} />
             <BlankSpacer height={32} />
           </View>
         )
