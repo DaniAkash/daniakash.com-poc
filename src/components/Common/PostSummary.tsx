@@ -8,6 +8,7 @@ import useColors from "../../hooks/useColors"
 import BlankSpacer from "react-native-blank-spacer"
 import dayjs from "dayjs"
 import NativeLink from "./NativeLink"
+import { POST_DATE_FORMAT } from "../../assets/styles/dateformats"
 
 export type PostSummaryProps = {
   containerStyle: StyleProp<ViewStyle>
@@ -35,9 +36,9 @@ const PostSummary = ({
       <View style={styles.infoRow}>
         <Time
           style={[styles.dateText, { color: colors.color3 }]}
-          dateTime="April 1, 2020"
+          dateTime={dayjs(date).format(POST_DATE_FORMAT)}
         >
-          April 2020
+          {dayjs(date).format(POST_DATE_FORMAT)}
         </Time>
         <NativeLink
           style={[styles.categoryText, { color: colors.color5 }]}
@@ -46,20 +47,6 @@ const PostSummary = ({
         >
           {category}
         </NativeLink>
-        <style>
-          {`a.p-summary-category {
-          color: ${colors.color5};
-          font-family: ${READING_FONT};
-          font-weight: bold;
-          font-size: 14px;
-        }
-        a.p-summary-category:hover {
-          color: ${colors.color2};
-        }`}
-        </style>
-        <Link className={"p-summary-category"} to="/">
-          Tech Talks
-        </Link>
       </View>
       <BlankSpacer height={16} />
       <View style={styles.titleSection}>
@@ -80,20 +67,14 @@ const PostSummary = ({
       </View>
       <BlankSpacer height={16} />
       <View style={styles.linkSection}>
-        <style>
-          {`a.p-read-more {
-          color: ${colors.color4};
-          font-family: ${READING_FONT};
-          font-weight: normal;
-          font-size: 14px;
-        }
-        a.p-read-more:hover {
-          color: ${colors.color2};
-        }`}
-        </style>
-        <Link className={"p-read-more"} to="/">
+        <NativeLink
+          url={url || path}
+          openNewTab
+          style={[styles.readMoreText, { color: colors.color4 }]}
+          hoveredStyle={{ color: colors.color2 }}
+        >
           Read
-        </Link>
+        </NativeLink>
       </View>
     </View>
   )
@@ -109,11 +90,14 @@ const styles = StyleSheet.create({
     fontFamily: READING_FONT,
     fontSize: 18,
     marginRight: 16,
+    textTransform: "capitalize",
   },
   categoryText: {
     fontWeight: "bold",
     fontSize: 14,
     fontFamily: READING_FONT,
+    textTransform: "capitalize",
+    marginBottom: 2,
   },
   titleSection: {},
   title: {
@@ -129,6 +113,11 @@ const styles = StyleSheet.create({
   contentSection: {},
   linkSection: {
     alignSelf: "flex-start",
+  },
+  readMoreText: {
+    fontFamily: READING_FONT,
+    fontWeight: "normal",
+    fontSize: 14,
   },
 })
 
