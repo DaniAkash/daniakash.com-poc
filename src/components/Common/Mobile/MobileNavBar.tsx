@@ -3,7 +3,6 @@ import { View, StyleSheet, StyleProp, ViewStyle } from "react-native"
 import { Link } from "gatsby"
 import { READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
-import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
 
 export type MenuType = {
   label: string
@@ -16,12 +15,10 @@ export type NavBarProps = {
 }
 
 const MobileNavBar = ({ menu, containerStyle }: NavBarProps) => {
-  const width = useResponsiveWidth(100)
-
   const colors = useColors()
 
   return (
-    <View style={[styles.navbar, { width }, containerStyle]}>
+    <View style={[styles.navbar, containerStyle]}>
       {menu.map((item, itemIndex) => {
         return (
           <Fragment key={itemIndex}>
@@ -59,6 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    width: "100vw",
   },
   navLink: {
     textDecorationLine: "underline",

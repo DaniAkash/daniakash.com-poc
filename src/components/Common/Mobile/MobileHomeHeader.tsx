@@ -72,7 +72,7 @@ const MobileHomeHeader = ({
 
   const colors = useColors()
 
-  const width = useResponsiveWidth(100)
+  const screenWidth = useResponsiveWidth(100)
 
   const onTitleLayout = (event: LayoutChangeEvent) => {
     const {
@@ -96,7 +96,6 @@ const MobileHomeHeader = ({
           {
             height: interpolator([0, STICKY_HEADER_HEIGHT]),
             opacity: interpolator([0, 0.9]),
-            width,
             backgroundColor: colors.backgroundColor,
           },
         ]}
@@ -121,7 +120,7 @@ const MobileHomeHeader = ({
       <View
         style={[
           styles.headerBackground,
-          { backgroundColor: colors.backgroundColor, width },
+          { backgroundColor: colors.backgroundColor },
         ]}
       />
       {/** TODO: Make Animated Image fluid */}
@@ -142,7 +141,10 @@ const MobileHomeHeader = ({
         style={[
           styles.pageTitle,
           {
-            left: interpolator([16 + 24 + 90, width / 2 - titleWidth / 2]),
+            left: interpolator([
+              16 + 24 + 90,
+              screenWidth / 2 - titleWidth / 2,
+            ]),
             top: interpolator([24, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
             color: colors.color4,
           },
@@ -161,7 +163,6 @@ const MobileHomeHeader = ({
           styles.triviaText,
           {
             color: colors.color4,
-            width: width - 48,
           },
           disapper,
         ]}
@@ -178,6 +179,7 @@ const MobileHomeHeader = ({
 const styles = StyleSheet.create({
   headerBackground: {
     height: HEADER_HEIGHT,
+    width: "100vw",
     position: "absolute",
     top: 0,
     left: 0,
@@ -206,6 +208,7 @@ const styles = StyleSheet.create({
     left: 24,
     marginVertical: 0,
     top: 24 + 36 + 90,
+    marginHorizontal: 48,
   },
   profilePic: {
     position: "absolute",
@@ -214,6 +217,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
+    width: "100vw",
   },
   switchWrapper: {
     position: "absolute",
