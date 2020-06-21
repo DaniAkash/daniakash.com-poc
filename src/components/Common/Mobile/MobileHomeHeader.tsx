@@ -42,6 +42,45 @@ export type HeaderProps = {
   containerStyle?: StyleProp<ViewStyle>
 }
 
+const AnimatedTitle = ({
+  interpolator,
+  title,
+}: {
+  title: string
+  interpolator: (
+    outputRange: [number, number],
+    customInputRange?: [number, number] | undefined
+  ) => Animated.AnimatedInterpolation
+}) => {
+  const colors = useColors()
+  const screenWidth = useResponsiveWidth(100)
+  const [titleWidth, setTitleWidth] = useState(136)
+  const [titleHeight, setTitleHeight] = useState(48)
+  const onTitleLayout = (event: LayoutChangeEvent) => {
+    const {
+      width: titleTextWidth,
+      height: titleTextHeight,
+    } = event.nativeEvent.layout
+    setTitleHeight(titleTextHeight)
+    setTitleWidth(titleTextWidth)
+  }
+  return (
+    <AnimatedH1
+      style={[
+        styles.pageTitle,
+        {
+          left: interpolator([16 + 24 + 90, screenWidth / 2 - titleWidth / 2]),
+          top: interpolator([24, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
+          color: colors.color4,
+        },
+      ]}
+      onLayout={onTitleLayout}
+    >
+      {title}
+    </AnimatedH1>
+  )
+}
+
 const MobileHomeHeader = ({
   animatedValue,
   title,
@@ -53,8 +92,6 @@ const MobileHomeHeader = ({
     .current
   const range = [0, HEADER_HEIGHT]
 
-  const [titleWidth, setTitleWidth] = useState(136)
-  const [titleHeight, setTitleHeight] = useState(48)
   const [value, setValue] = useState(true)
   const [hamburgerActive, setHamburgerActive] = useState(true)
 
@@ -71,17 +108,6 @@ const MobileHomeHeader = ({
     })
 
   const colors = useColors()
-
-  const screenWidth = useResponsiveWidth(100)
-
-  const onTitleLayout = (event: LayoutChangeEvent) => {
-    const {
-      width: titleTextWidth,
-      height: titleTextHeight,
-    } = event.nativeEvent.layout
-    setTitleHeight(titleTextHeight)
-    setTitleWidth(titleTextWidth)
-  }
 
   const disapper = {
     transform: [{ translateY: interpolator([0, 24]) }],
@@ -116,7 +142,6 @@ const MobileHomeHeader = ({
           onChange={(newValue: boolean) => setValue(newValue)}
         />
       </View>
-
       <View
         style={[
           styles.headerBackground,
@@ -137,22 +162,7 @@ const MobileHomeHeader = ({
         ]}
         source={require("../../../assets/images/profile-pic.jpg")}
       />
-      <AnimatedH1
-        style={[
-          styles.pageTitle,
-          {
-            left: interpolator([
-              16 + 24 + 90,
-              screenWidth / 2 - titleWidth / 2,
-            ]),
-            top: interpolator([24, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
-            color: colors.color4,
-          },
-        ]}
-        onLayout={onTitleLayout}
-      >
-        {title}
-      </AnimatedH1>
+      <AnimatedTitle title={title} interpolator={interpolator} />
       <AnimatedP style={[styles.infoText, { color: colors.color4 }, disapper]}>
         {description}
       </AnimatedP>

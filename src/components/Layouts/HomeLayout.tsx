@@ -16,7 +16,6 @@ import useColors from "../../hooks/useColors"
 import SEO from "../seo"
 import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
 import HomeHeader from "../Common/HomeHeader"
-import useResponsiveWidth from "../../hooks/useResponsiveWidth"
 
 const { createAnimatedComponent, Value, event } = Animated
 
@@ -51,9 +50,11 @@ const HomeLayout = ({ children }: LayoutProps) => {
   const { siteMetadata } = data.site
 
   const layout = useCurrentPrimaryLayout()
-  const desktopPadding = useResponsiveWidth(12)
-  const tabletPadding = useResponsiveWidth(8)
-  const padding = layout === "desktop" ? desktopPadding : tabletPadding
+
+  const desktopPadding = "12vw"
+  const tabletPadding = "8vw"
+  const responsivePadding =
+    layout === "desktop" ? desktopPadding : tabletPadding
 
   if (layout !== "mobile") {
     return (
@@ -63,7 +64,7 @@ const HomeLayout = ({ children }: LayoutProps) => {
           containerStyle={[
             styles.desktopHeader,
             {
-              paddingHorizontal: padding,
+              paddingHorizontal: responsivePadding,
             },
           ]}
           {...siteMetadata}
@@ -72,7 +73,7 @@ const HomeLayout = ({ children }: LayoutProps) => {
           contentContainerStyle={[
             styles.desktopContentSection,
             {
-              paddingRight: padding,
+              paddingRight: responsivePadding,
             },
           ]}
         >
