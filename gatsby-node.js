@@ -9,7 +9,13 @@ exports.createPages = async ({ graphql, actions }) => {
     query MyQuery {
       allMarkdownRemark(
         sort: { order: DESC, fields: frontmatter___date }
-        filter: { frontmatter: { draft: { ne: true } } }
+        filter: {
+          frontmatter: {
+            draft: { ne: true }
+            url: { eq: null }
+            path: { ne: null }
+          }
+        }
       ) {
         nodes {
           frontmatter {
