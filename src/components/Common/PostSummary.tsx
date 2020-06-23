@@ -8,6 +8,7 @@ import BlankSpacer from "react-native-blank-spacer"
 import dayjs from "dayjs"
 import NativeLink from "./NativeLink"
 import { POST_DATE_FORMAT } from "../../assets/styles/dateformats"
+import { kebabCase } from "lodash"
 
 export type PostSummaryProps = {
   containerStyle: StyleProp<ViewStyle>
@@ -42,7 +43,7 @@ const PostSummary = ({
         <NativeLink
           style={[styles.categoryText, { color: colors.color5 }]}
           hoveredStyle={{ color: colors.color2 }}
-          url={category}
+          url={`/categories/${kebabCase(category)}`}
         >
           {category}
         </NativeLink>
