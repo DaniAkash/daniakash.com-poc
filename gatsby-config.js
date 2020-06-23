@@ -8,6 +8,17 @@ module.exports = {
       "I sometimes code while listening to music",
       "I learnt javascript cuz I wanted to do form validation",
       "☝This display pic was taken so many years ago...",
+      "CSS is too OP",
+      "I don't know why I built this site with React Native",
+      "Hit refresh & this text will change",
+      "Ace dies in One Piece",
+      "I'll write a new post soon. Please Trust me...",
+      "Still no proof for string theory",
+      "Climate change is real",
+      "Angular isn't bad. It just doesn't have a cool logo",
+      "There are people still maintaining the jQuery project. Ever think about that?",
+      "You are awesome. Have a great day",
+      "Hey Siri, What's this machine learning thing?",
     ],
     menu: [
       {
