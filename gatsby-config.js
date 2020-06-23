@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         label: "talks",
-        path: "/talks",
+        path: "/categories/tech-talks",
       },
       {
         label: "projects",
