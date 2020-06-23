@@ -1,6 +1,5 @@
 import React from "react"
 import { View, StyleSheet, StyleProp } from "react-native"
-import { Link } from "gatsby"
 import { Time, H2, P } from "@expo/html-elements"
 import { ViewStyle } from "@expo/html-elements/build/primitives/View"
 import { READING_FONT } from "../../assets/styles/fonts"
@@ -88,13 +87,13 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontFamily: READING_FONT,
-    fontSize: 18,
+    fontSize: "1.2rem",
     marginRight: 16,
     textTransform: "capitalize",
   },
   categoryText: {
     fontWeight: "bold",
-    fontSize: 14,
+    fontSize: "0.9rem",
     fontFamily: READING_FONT,
     textTransform: "capitalize",
     marginBottom: 2,
@@ -103,12 +102,13 @@ const styles = StyleSheet.create({
   title: {
     marginVertical: 0,
     fontFamily: READING_FONT,
-    fontSize: 24,
+    fontSize: "1.5rem",
   },
   content: {
     marginVertical: 0,
     fontFamily: READING_FONT,
-    fontSize: 14,
+    fontSize: "0.8rem",
+    lineHeight: "1rem",
   },
   contentSection: {},
   linkSection: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   readMoreText: {
     fontFamily: READING_FONT,
     fontWeight: "normal",
-    fontSize: 14,
+    fontSize: "0.9rem",
   },
 })
 

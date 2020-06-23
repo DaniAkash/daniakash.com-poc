@@ -1,12 +1,12 @@
 import React, { useRef, ReactNode } from "react"
 import { A } from "@expo/html-elements"
 import { useHover, useFocus, useActive } from "react-native-web-hooks"
-import { StyleProp, TextStyle } from "react-native"
+import { StyleProp, TextStyle, ViewStyle } from "react-native"
 import { navigate } from "gatsby"
 
 export interface NativeLinkProps {
   url: string
-  style?: StyleProp<TextStyle>
+  style?: StyleProp<TextStyle> | StyleProp<ViewStyle>
   hoveredStyle?: StyleProp<TextStyle>
   focusedStyle?: StyleProp<TextStyle>
   activeStyle?: StyleProp<TextStyle>

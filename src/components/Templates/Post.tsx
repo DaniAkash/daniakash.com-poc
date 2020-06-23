@@ -7,6 +7,8 @@ import NativeLink from "../Common/NativeLink"
 import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
 import { H1 } from "@expo/html-elements"
 import useColors from "../../hooks/useColors"
+import BlankSpacer from "react-native-blank-spacer"
+import Pill from "../Common/Pill"
 
 const Post = ({
   data: {
@@ -37,7 +39,7 @@ const Post = ({
     <PostLayout>
       <style>
         {`p {
-font-size: 1rem;
+font-size: 0.9rem;
 margin-top: 1.5rem;
 line-height: 1.5rem;
 font-weight: 400;
@@ -92,7 +94,20 @@ code {
   color: ${colors.color2};
   border-radius: 5px;
   padding: 2px;
-  font-family: ${CODING_FONT}
+  font-family: ${CODING_FONT};
+}
+a {
+  color: ${colors.color4};
+  text-decoration: underline;
+}
+a:hover {
+  color: ${colors.color3};
+}
+p small {
+  color: ${colors.color3};
+  font-size: 0.75rem;
+  text-align: center;
+  display: block;
 }
 `}
       </style>
@@ -102,32 +117,58 @@ code {
           isMobile ? styles.mobileContent : null,
         ]}
       >
+        <BlankSpacer height={"3.5rem"} />
         <H1 style={[styles.title, { color: colors.color2 }]}>{title}</H1>
+        <BlankSpacer height={"1rem"} />
         <div
-          style={{ color: colors.textColor }}
+          style={{
+            color: colors.textColor,
+          }}
           dangerouslySetInnerHTML={{ __html: html }}
         />
-        <View style={styles.linkRow}>
-          {nextPost ? (
-            <NativeLink
-              style={styles.nextLink}
-              openNewTab
-              url={nextPost.frontmatter.path || ""}
-            >
-              Next
-            </NativeLink>
-          ) : null}
-          {previousPost ? (
-            <NativeLink
-              style={styles.previousLink}
-              openNewTab
-              url={previousPost.frontmatter.path || ""}
-            >
-              Previous
-            </NativeLink>
-          ) : null}
+        <BlankSpacer height={"2rem"} />
+        <View style={styles.tagsRow}>
+          {tags.map((tag, tagIndex) => {
+            return <Pill text={tag} key={tagIndex} />
+          })}
+        </View>
+        <BlankSpacer height={"2rem"} />
+        <View style={[styles.linkRow, isMobile ? styles.linkMobileRow : null]}>
+          <View style={styles.linkContainer}>
+            {nextPost ? (
+              <>
+                <Text style={[styles.arrowIcon, { color: colors.color2 }]}>
+                  {"<"}
+                </Text>
+                <NativeLink
+                  style={[styles.previousLink, { color: colors.color4 }]}
+                  hoveredStyle={{ color: colors.color2 }}
+                  openNewTab
+                  url={nextPost.frontmatter.path || ""}
+                >
+                  {nextPost.frontmatter.title}
+                </NativeLink>
+              </>
+            ) : null}
+          </View>
+          <View style={styles.linkContainer}>
+            {previousPost ? (
+              <>
+                <NativeLink
+                  style={[styles.nextLink, { color: colors.color4 }]}
+                  hoveredStyle={{ color: colors.color2 }}
+                  openNewTab
+                  url={previousPost.frontmatter.path || ""}
+                >
+                  {previousPost.frontmatter.title}
+                </NativeLink>
+                <Text style={styles.arrowIcon}>{">"}</Text>
+              </>
+            ) : null}
+          </View>
         </View>
       </View>
+      <BlankSpacer height={56} />
     </PostLayout>
   )
 }
@@ -162,15 +203,46 @@ const styles = StyleSheet.create({
   mobileContent: {
     marginHorizontal: "1.5rem",
   },
-  linkRow: {},
+  linkRow: {
+    flexDirection: "row",
+  },
+  linkMobileRow: {
+    flexDirection: "column",
+  },
   title: {
     textAlign: "center",
     fontFamily: READING_FONT,
-    marginTop: "3.5rem",
-    marginBottom: "1rem",
+    marginVertical: 0,
   },
-  nextLink: {},
-  previousLink: {},
+  linkContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    fontFamily: READING_FONT,
+  },
+  previousLink: {
+    flex: 1,
+    textAlign: "left",
+    textAlignVertical: "center",
+    fontSize: "0.8rem",
+    marginLeft: "1rem",
+  },
+  nextLink: {
+    flex: 1,
+    textAlign: "right",
+    textAlignVertical: "center",
+    fontSize: "0.8rem",
+    marginRight: "1rem",
+  },
+  arrowIcon: {
+    fontFamily: READING_FONT,
+    fontWeight: "100",
+    fontSize: "3rem",
+  },
+  tagsRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
 })
 
 export default Post
