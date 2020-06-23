@@ -48,7 +48,7 @@ export const query = graphql`
         frontmatter: {
           layout: { eq: "post" }
           draft: { ne: true }
-          tags: { in: [$tag] }
+          tags: { eq: $tag }
         }
       }
       sort: { order: DESC, fields: frontmatter___date }
