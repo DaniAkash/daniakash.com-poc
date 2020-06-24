@@ -1,10 +1,16 @@
-import React from "react"
-import { View, StyleSheet } from "react-native"
+import React, { ReactNode } from "react"
+import { View, StyleSheet, ScrollView } from "react-native"
 import "../../assets/styles/global.css"
 import useColors from "../../hooks/useColors"
+import PostHeader from "../Common/PostHeader"
+import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
 
-const PostLayout = ({ children }) => {
+const PostLayout = ({ children }: { children: ReactNode }) => {
   const colors = useColors()
+  const displayLayout = useCurrentPrimaryLayout()
+
+  const isDesktop = displayLayout === "desktop"
+
   return (
     <View
       style={[
@@ -14,7 +20,8 @@ const PostLayout = ({ children }) => {
         },
       ]}
     >
-      {children}
+      <ScrollView>{children}</ScrollView>
+      {isDesktop ? <PostHeader /> : null}
     </View>
   )
 }

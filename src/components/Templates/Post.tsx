@@ -1,6 +1,6 @@
 import React from "react"
 import { View, Text, StyleSheet } from "react-native"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import PostLayout from "../Layouts/PostLayout"
 import { READING_FONT, CODING_FONT } from "../../assets/styles/fonts"
 import NativeLink from "../Common/NativeLink"
