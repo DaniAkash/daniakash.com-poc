@@ -4,6 +4,7 @@ import "../../assets/styles/global.css"
 import useColors from "../../hooks/useColors"
 import PostHeader from "../Common/PostHeader"
 import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
+import MobilePostHeader from "../Common/Mobile/MobilePostHeader"
 
 const PostLayout = ({ children }: { children: ReactNode }) => {
   const colors = useColors()
@@ -22,6 +23,7 @@ const PostLayout = ({ children }: { children: ReactNode }) => {
     >
       <ScrollView>{children}</ScrollView>
       {isDesktop ? <PostHeader /> : null}
+      {!isDesktop ? <MobilePostHeader /> : null}
     </View>
   )
 }

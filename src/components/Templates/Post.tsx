@@ -5,10 +5,14 @@ import PostLayout from "../Layouts/PostLayout"
 import { READING_FONT, CODING_FONT } from "../../assets/styles/fonts"
 import NativeLink from "../Common/NativeLink"
 import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
-import { H1 } from "@expo/html-elements"
+import { H1, P, Time } from "@expo/html-elements"
 import useColors from "../../hooks/useColors"
 import BlankSpacer from "react-native-blank-spacer"
 import Pill from "../Common/Pill"
+import { POST_DATE_FORMAT } from "../../assets/styles/dateformats"
+import dayjs from "dayjs"
+import FacebookIcon from "../../assets/svg/facebook-icon.min.svg"
+import TwitterIcon from "../../assets/svg/twitter-icon.min.svg"
 
 const Post = ({
   data: {
@@ -34,6 +38,7 @@ const Post = ({
   const colors = useColors()
 
   const isMobile = displayLayout === "mobile"
+  const isDesktop = displayLayout === "desktop"
 
   return (
     <PostLayout>
@@ -117,7 +122,7 @@ p small {
           isMobile ? styles.mobileContent : null,
         ]}
       >
-        <BlankSpacer height={"3.5rem"} />
+        <BlankSpacer height={isDesktop ? "3.5rem" : "4.5rem"} />
         <H1 style={[styles.title, { color: colors.color2 }]}>{title}</H1>
         <BlankSpacer height={"1rem"} />
         <div
@@ -126,6 +131,63 @@ p small {
           }}
           dangerouslySetInnerHTML={{ __html: html }}
         />
+        <BlankSpacer height={"2rem"} />
+        <View
+          style={[
+            styles.infoTextRow,
+            isMobile ? styles.infoTextRowMobile : null,
+          ]}
+        >
+          <P style={[styles.infoText, { color: colors.textColor }]}>
+            Published{" "}
+            <Time
+              style={[styles.publishedTime, { color: colors.color3 }]}
+              dateTime={dayjs(date).format(POST_DATE_FORMAT)}
+            >
+              {dayjs(date).format(POST_DATE_FORMAT)}
+            </Time>
+          </P>
+          <View style={styles.infoText}>
+            <NativeLink
+              openNewTab
+              url={`https://twitter.com/search?q=${encodeURI(
+                window.location.href
+              )}`}
+              style={{
+                color: colors.color4,
+              }}
+              hoveredStyle={[
+                {
+                  color: colors.color2,
+                },
+                styles.infoLink,
+              ]}
+            >
+              Discuss on Twitter
+            </NativeLink>
+            <P>{` (or) Share on `}</P>
+            <NativeLink
+              openNewTab
+              url={`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(
+                window.location.href
+              )}`}
+            >
+              <View style={styles.facebookIcon}>
+                <FacebookIcon />
+              </View>
+            </NativeLink>{" "}
+            <NativeLink
+              openNewTab
+              url={`https://twitter.com/intent/tweet?url=${encodeURI(
+                window.location.href
+              )}&text=${title}`}
+            >
+              <View style={styles.twitterIcon}>
+                <TwitterIcon />
+              </View>
+            </NativeLink>
+          </View>
+        </View>
         <BlankSpacer height={"2rem"} />
         <View style={styles.tagsRow}>
           {tags.map((tag, tagIndex) => {
@@ -239,9 +301,48 @@ const styles = StyleSheet.create({
     fontWeight: "100",
     fontSize: "3rem",
   },
+  infoTextRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  infoTextRowMobile: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  infoText: {
+    fontFamily: READING_FONT,
+    fontSize: "0.9rem",
+    lineHeight: "1.5rem",
+    fontWeight: 400,
+    letterSpacing: "0.03rem",
+    fontStyle: "italic",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  infoLink: {
+    textDecorationLine: "underline",
+  },
+  publishedTime: {},
+  facebookIcon: {
+    height: "1.5rem",
+    width: "1.5rem",
+    marginLeft: "0.2rem",
+    marginTop: 4,
+  },
+  twitterIcon: {
+    height: "1.6rem",
+    width: "1.6rem",
+    marginLeft: "0.6rem",
+    marginTop: 4,
+  },
   tagsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
   },
 })
 
