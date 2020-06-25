@@ -13,6 +13,7 @@ import { POST_DATE_FORMAT } from "../../assets/styles/dateformats"
 import dayjs from "dayjs"
 import FacebookIcon from "../../assets/svg/facebook-icon.min.svg"
 import TwitterIcon from "../../assets/svg/twitter-icon.min.svg"
+import ProfileCard from "../ProfileCard"
 
 const Post = ({
   data: {
@@ -29,6 +30,9 @@ const Post = ({
         title,
         url,
       },
+    },
+    site: {
+      siteMetadata: { author, title: authorTitle },
     },
   },
   pageContext: { previousPost, nextPost },
@@ -199,9 +203,11 @@ p small {
           <View style={styles.linkContainer}>
             {nextPost ? (
               <>
-                <Text style={[styles.arrowIcon, { color: colors.color2 }]}>
-                  {"<"}
-                </Text>
+                <NativeLink url={nextPost.frontmatter.path || ""}>
+                  <Text style={[styles.arrowIcon, { color: colors.color2 }]}>
+                    {"<"}
+                  </Text>
+                </NativeLink>
                 <NativeLink
                   style={[styles.previousLink, { color: colors.color4 }]}
                   hoveredStyle={{ color: colors.color2 }}
@@ -224,11 +230,15 @@ p small {
                 >
                   {previousPost.frontmatter.title}
                 </NativeLink>
-                <Text style={styles.arrowIcon}>{">"}</Text>
+                <NativeLink url={previousPost.frontmatter.path || ""}>
+                  <Text style={styles.arrowIcon}>{">"}</Text>
+                </NativeLink>
               </>
             ) : null}
           </View>
         </View>
+        <BlankSpacer height={"2rem"} />
+        <ProfileCard twitterHandle={author} title={authorTitle} />
       </View>
       <BlankSpacer height={56} />
     </PostLayout>
@@ -250,6 +260,12 @@ export const query = graphql`
         tags
         title
         url
+      }
+    }
+    site(siteMetadata: {}) {
+      siteMetadata {
+        author
+        title
       }
     }
   }
