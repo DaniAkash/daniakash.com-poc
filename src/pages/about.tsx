@@ -100,6 +100,7 @@ const About = () => {
             MyAnimeList
           </NativeLink>
         </P>
+        <BlankSpacer height={"2rem"} />
         <P style={[regularStyle, styles.linkArea]}>
           <NativeLink
             openNewTab
@@ -156,7 +157,7 @@ const About = () => {
           </NativeLink>
         </P>
       </View>
-      <BlankSpacer height={24} />
+      <BlankSpacer height={"2rem"} />
     </HomeLayout>
   )
 }
