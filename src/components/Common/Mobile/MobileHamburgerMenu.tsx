@@ -1,6 +1,7 @@
 import React from "react"
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
-import Modal from "../../../Modal/Modal"
+import { View, StyleSheet } from "react-native"
+// @ts-ignore
+import Modal from "modal-enhanced-react-native-web"
 import useColors from "../../../hooks/useColors"
 import { MenuType } from "./MobileNavBar"
 import NativeLink from "../NativeLink"
@@ -26,45 +27,40 @@ const MobileHamburgerMenu = ({
 
   return (
     <Modal
-      animationType={"slide"}
-      style={styles.nativeModalContainer}
-      visible={isVisible}
+      animationType={"slideInUp"}
+      isVisible={isVisible}
       onRequestClose={toggleHamburger}
+      backdropColor={colors.backgroundColor}
+      hasBackdrop
+      backdropOpacity={0.9}
+      onBackdropPress={toggleHamburger}
     >
       {isVisible ? (
-        <View
-          // onPress={toggleHamburger}
-          style={styles.modalBackdrop}
-        >
-          <View
-            style={[
-              styles.modalContainer,
-              { backgroundColor: colors.backgroundColor },
-            ]}
-          >
-            {menu.map((item, itemIndex) => {
-              return (
-                <AnimatableView
-                  animation={"fadeInUp"}
-                  style={styles.linkWrapper}
-                  delay={100 * (itemIndex + 1)}
-                >
-                  <NativeLink
-                    style={[styles.linkText, { color: colors.color4 }]}
-                    hoveredStyle={{ color: colors.color2 }}
-                    openNewTab
-                    url={item.path}
-                    activeUrlStyle={{
-                      textDecorationLine: "underline",
+        <View style={[styles.modalContainer]}>
+          {menu.map((item, itemIndex) => {
+            return (
+              <AnimatableView
+                animation={"fadeInUp"}
+                style={styles.linkWrapper}
+                delay={100 * (itemIndex + 1)}
+              >
+                <NativeLink
+                  style={[styles.linkText, { color: colors.color4 }]}
+                  hoveredStyle={{ color: colors.color2 }}
+                  openNewTab
+                  url={item.path}
+                  activeUrlStyle={[
+                    styles.linkActive,
+                    {
                       color: colors.color2,
-                    }}
-                  >
-                    {item.label}
-                  </NativeLink>
-                </AnimatableView>
-              )
-            })}
-          </View>
+                    },
+                  ]}
+                >
+                  {item.label}
+                </NativeLink>
+              </AnimatableView>
+            )
+          })}
         </View>
       ) : null}
     </Modal>
@@ -72,18 +68,7 @@ const MobileHamburgerMenu = ({
 }
 
 const styles = StyleSheet.create({
-  nativeModalContainer: {
-    position: "absolute",
-    height: "100vh",
-    width: "100vw",
-    margin: 0,
-    borderColor: "transparent",
-  },
-  modalBackdrop: {
-    flex: 1,
-  },
   modalContainer: {
-    flex: 1,
     opacity: 0.9,
     alignItems: "center",
     justifyContent: "center",
@@ -95,6 +80,9 @@ const styles = StyleSheet.create({
     fontFamily: READING_FONT,
     fontWeight: "600",
     fontSize: "1.2rem",
+  },
+  linkActive: {
+    textDecorationLine: "underline",
   },
 })
 
