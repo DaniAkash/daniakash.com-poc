@@ -20,6 +20,7 @@ import useColors from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
 import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
 import { ViewStyle } from "@expo/html-elements/build/primitives/View"
+import MobileHamburgerMenu from "./MobileHamburgerMenu"
 
 const { createAnimatedComponent, Value } = Animated
 
@@ -93,7 +94,7 @@ const MobileHomeHeader = ({
   const range = [0, HEADER_HEIGHT]
 
   const [value, setValue] = useState(true)
-  const [hamburgerActive, setHamburgerActive] = useState(true)
+  const [hamburgerActive, setHamburgerActive] = useState(false)
 
   const toggleHamburger = () => setHamburgerActive(!hamburgerActive)
 
@@ -182,6 +183,11 @@ const MobileHomeHeader = ({
       <AnimatedView style={[styles.navbar, disapper]}>
         <MobileNavBar menu={menu} />
       </AnimatedView>
+      <MobileHamburgerMenu
+        toggleHamburger={toggleHamburger}
+        isVisible={hamburgerActive}
+        menu={menu}
+      />
     </>
   )
 }
