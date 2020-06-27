@@ -1,9 +1,32 @@
-export const lightColors = {
+const primaryPallete = {
   color1: `rgba(23, 62, 140, 1)`,
   color2: `rgba(1, 28, 63, 1)`,
   color3: `rgba(2, 62, 114, 1)`,
   color4: `rgba(41, 118, 165, 1)`,
   color5: `rgba(88, 203, 216, 1)`,
+}
+
+const secondaryPallete = {
+  color1: `rgba(80,138,47,1)`,
+  color2: `rgba(25,138,93,1)`,
+  color3: `rgba(118,214,62,1)`,
+  color4: `rgba(86,214,163,1)`,
+  color5: `rgba(51,214,76,1)`,
+}
+
+const primaryDarkPallete = {
+  color1: `rgba(164,163,181,1)`,
+  color2: `rgba(198,246,250,1)`,
+  color3: `rgba(255,204,115,1)`,
+  color4: `rgba(161,179,178,1)`,
+  color5: `rgba(227,252,252,1)`,
+}
+
+const pallete = primaryPallete
+const darkPallete = primaryDarkPallete
+
+export const lightColors = {
+  ...pallete,
 
   gray: "rgb(142, 142, 147)",
   gray2: "rgb(174, 174, 178)",
@@ -12,16 +35,12 @@ export const lightColors = {
   gray5: "rgb(229, 229, 234)",
   gray6: "rgb(242, 242, 247)",
 
-  textColor: "black",
+  textColor: "rgb(41,41,41)",
   backgroundColor: "white",
 }
 
 export const darkColors = {
-  color1: `rgba(23, 62, 140, 1)`,
-  color2: `rgba(1, 28, 63, 1)`,
-  color3: `rgba(2, 62, 114, 1)`,
-  color4: `rgba(41, 118, 165, 1)`,
-  color5: `rgba(88, 203, 216, 1)`,
+  ...darkPallete,
 
   gray: "rgb(142, 142, 147)",
   gray2: "rgb(99, 99, 102)",
@@ -31,5 +50,5 @@ export const darkColors = {
   gray6: "rgb(28, 28, 30)",
 
   textColor: "white",
-  backgroundColor: "black",
+  backgroundColor: "rgb(41,41,41)",
 }

@@ -169,7 +169,7 @@ p small {
             >
               Discuss on Twitter
             </NativeLink>
-            <P>{` (or) Share on `}</P>
+            <P style={{ color: colors.textColor }}>{` (or) Share on `}</P>
             <NativeLink
               openNewTab
               url={`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(

@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   StyleProp,
+  ViewStyle,
 } from "react-native"
 import Switch from "expo-dark-mode-switch"
 import { H1, P } from "@expo/html-elements"
@@ -16,10 +17,9 @@ import {
   HIGHLIGHT_FONT,
   INFO_FONT,
 } from "../../../assets/styles/fonts"
-import useColors from "../../../hooks/useColors"
+import useColors, { colorSchemeUtil } from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
 import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
-import { ViewStyle } from "@expo/html-elements/build/primitives/View"
 import MobileHamburgerMenu from "./MobileHamburgerMenu"
 
 const { createAnimatedComponent, Value } = Animated
@@ -139,8 +139,14 @@ const MobileHomeHeader = ({
       </TouchableOpacity>
       <View style={styles.switchWrapper}>
         <Switch
-          value={value}
-          onChange={(newValue: boolean) => setValue(newValue)}
+          value={colors.backgroundColor !== "white"}
+          onChange={(newValue: boolean) => {
+            if (newValue) {
+              colorSchemeUtil.setColorScheme?.("dark")
+            } else {
+              colorSchemeUtil.setColorScheme?.("light")
+            }
+          }}
         />
       </View>
       <View

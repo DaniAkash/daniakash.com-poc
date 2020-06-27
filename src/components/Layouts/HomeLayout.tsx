@@ -58,7 +58,13 @@ const HomeLayout = ({ children }: LayoutProps) => {
 
   if (layout !== "mobile") {
     return (
-      <View style={[styles.pageContainer, styles.desktopPageContainer]}>
+      <View
+        style={[
+          styles.pageContainer,
+          styles.desktopPageContainer,
+          { backgroundColor: colors.backgroundColor },
+        ]}
+      >
         <SEO title="Home" />
         <HomeHeader
           containerStyle={[
@@ -84,7 +90,12 @@ const HomeLayout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <View style={styles.pageContainer}>
+    <View
+      style={[
+        styles.pageContainer,
+        { backgroundColor: colors.backgroundColor },
+      ]}
+    >
       <SEO title="Home" />
       <AnimatedScrollView
         contentContainerStyle={[
