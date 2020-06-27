@@ -40,6 +40,7 @@ const MobileHamburgerMenu = ({
           {menu.map((item, itemIndex) => {
             return (
               <AnimatableView
+                key={itemIndex}
                 animation={"fadeInUp"}
                 style={styles.linkWrapper}
                 delay={100 * (itemIndex + 1)}
