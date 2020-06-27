@@ -10,6 +10,7 @@ export interface NativeLinkProps {
   hoveredStyle?: StyleProp<TextStyle>
   focusedStyle?: StyleProp<TextStyle>
   activeStyle?: StyleProp<TextStyle>
+  activeUrlStyle?: StyleProp<TextStyle>
   children?: ReactNode
   openNewTab?: boolean
 }
@@ -22,6 +23,7 @@ const NativeLink = ({
   activeStyle,
   children,
   openNewTab = false,
+  activeUrlStyle,
 }: NativeLinkProps) => {
   const linkRef = useRef<any>(null)
 
@@ -48,10 +50,13 @@ const NativeLink = ({
     navigate(url)
   }
 
+  const activeLinkStyle =
+    window.location.pathname === url ? activeUrlStyle : null
+
   return (
     <A
       onPress={clickHandler}
-      style={linkStyle}
+      style={[linkStyle, activeLinkStyle]}
       href={url}
       ref={linkRef}
       {...newTabProps}
