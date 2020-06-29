@@ -14,10 +14,14 @@ export const colorSchemeUtil: {
 } = {}
 
 const useColorsStore = () => {
-  const [colorScheme, setColorScheme] = useState(
-    (window.localStorage.getItem(colorPreferenceKey) as ColorSchemeName) ||
-      Appearance.getColorScheme()
-  )
+  const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme())
+
+  useEffect(() => {
+    setColorScheme(
+      (window.localStorage.getItem(colorPreferenceKey) as ColorSchemeName) ||
+        Appearance.getColorScheme()
+    )
+  }, [])
 
   useEffect(() => {
     window.localStorage.setItem(colorPreferenceKey, colorScheme)

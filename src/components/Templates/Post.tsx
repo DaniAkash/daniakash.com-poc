@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { View, Text, StyleSheet } from "react-native"
 import { graphql } from "gatsby"
 import PostLayout from "../Layouts/PostLayout"
@@ -38,6 +38,12 @@ const Post = ({
   pageContext: { previousPost, nextPost },
 }: any) => {
   const displayLayout = useCurrentPrimaryLayout()
+
+  const [currentUrl, setCurrentUrl] = useState("")
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href)
+  }, [])
 
   const colors = useColors()
 
@@ -154,9 +160,7 @@ p small {
           <View style={styles.infoText}>
             <NativeLink
               openNewTab
-              url={`https://twitter.com/search?q=${encodeURI(
-                window.location.href
-              )}`}
+              url={`https://twitter.com/search?q=${encodeURI(currentUrl)}`}
               style={{
                 color: colors.color4,
               }}
@@ -173,7 +177,7 @@ p small {
             <NativeLink
               openNewTab
               url={`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(
-                window.location.href
+                currentUrl
               )}`}
             >
               <View style={styles.facebookIcon}>
@@ -183,7 +187,7 @@ p small {
             <NativeLink
               openNewTab
               url={`https://twitter.com/intent/tweet?url=${encodeURI(
-                window.location.href
+                currentUrl
               )}&text=${title}`}
             >
               <View style={styles.twitterIcon}>

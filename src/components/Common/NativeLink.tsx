@@ -1,4 +1,4 @@
-import React, { useRef, ReactNode } from "react"
+import React, { useRef, ReactNode, useState, useEffect } from "react"
 import { A } from "@expo/html-elements"
 import { useHover, useFocus, useActive } from "react-native-web-hooks"
 import { StyleProp, TextStyle, ViewStyle } from "react-native"
@@ -27,6 +27,8 @@ const NativeLink = ({
 }: NativeLinkProps) => {
   const linkRef = useRef<any>(null)
 
+  const [isLinkActive, setIsLinkActive] = useState(false)
+
   const isHovered = useHover(linkRef)
   const isFocused = useFocus(linkRef)
   const isActive = useActive(linkRef)
@@ -50,8 +52,11 @@ const NativeLink = ({
     navigate(url)
   }
 
-  const activeLinkStyle =
-    window.location.pathname === url ? activeUrlStyle : null
+  useEffect(() => {
+    setIsLinkActive(window.location.pathname === url)
+  }, [])
+
+  const activeLinkStyle = isLinkActive ? activeUrlStyle : null
 
   return (
     <A
