@@ -1,11 +1,11 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
-import PostSummary from "../components/Common/PostSummary"
+import PostSummary from "../Common/PostSummary"
 import BlankSpacer from "react-native-blank-spacer"
-import HomeLayout from "../components/Layouts/HomeLayout"
+import HomeLayout from "../Layouts/HomeLayout"
 import { graphql } from "gatsby"
 import { H2 } from "@expo/html-elements"
-import useColors from "../hooks/useColors"
+import useColors from "../../hooks/useColors"
 import { startCase } from "lodash"
 
 const Category = ({

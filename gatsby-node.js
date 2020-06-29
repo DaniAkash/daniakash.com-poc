@@ -5,8 +5,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const PostTemplate = path.resolve("./src/components/Templates/Post.tsx")
-  const Category = path.resolve("./src/pages/category.tsx")
-  const Tags = path.resolve("./src/pages/tags.tsx")
+  const Category = path.resolve("./src/components/Templates/Category.tsx")
+  const Tags = path.resolve("./src/components/Templates/Tags.tsx")
 
   const result = await graphql(`
     query MyQuery {
