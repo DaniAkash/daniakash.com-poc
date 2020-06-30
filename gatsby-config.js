@@ -73,6 +73,7 @@ module.exports = {
         path: `${__dirname}/posts`,
       },
     },
+    `gatsby-plugin-dark-mode`,
     `gatsby-plugin-lodash`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

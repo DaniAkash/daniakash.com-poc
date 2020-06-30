@@ -1,33 +1,54 @@
 import { Appearance, ColorSchemeName } from "react-native-appearance"
 import { darkColors, lightColors } from "../assets/styles/colors"
 import { createRexStore } from "rex-state"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, ReactNode } from "react"
 
 /**
  * TODO: This whole file is a big mistake
  */
 
-const colorPreferenceKey = "@daniakash.com/color-scheme"
-
 export const colorSchemeUtil: {
-  setColorScheme?: React.Dispatch<React.SetStateAction<ColorSchemeName>>
+  setColorScheme?: (scheme: ColorSchemeName) => any
 } = {}
 
-const useColorsStore = () => {
+const useColorManagerStore = (): [
+  ColorSchemeName,
+  (
+    initialTheme: ColorSchemeName,
+    themeToggler?: ((themeName: ColorSchemeName) => any) | undefined
+  ) => void
+] => {
   const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme())
+  const persistedToggler = useRef<any>(null)
 
-  useEffect(() => {
-    setColorScheme(
-      (window.localStorage.getItem(colorPreferenceKey) as ColorSchemeName) ||
-        Appearance.getColorScheme()
-    )
-  }, [])
+  const changeColorScheme = (
+    initialTheme: ColorSchemeName,
+    themeToggler?: (themeName: ColorSchemeName) => any
+  ) => {
+    setColorScheme(initialTheme)
+    themeToggler?.(initialTheme)
+    if (themeToggler) {
+      persistedToggler.current = themeToggler
+    }
+    persistedToggler.current?.(initialTheme)
+  }
 
-  useEffect(() => {
-    window.localStorage.setItem(colorPreferenceKey, colorScheme)
-  })
+  return [colorScheme, changeColorScheme]
+}
 
-  colorSchemeUtil.setColorScheme = setColorScheme
+export const {
+  useStore: useColorManager,
+  RexProvider: ColorManager,
+} = createRexStore(useColorManagerStore)
+
+const useColorsStore = () => {
+  const [colorScheme, setColorScheme] = useColorManager()
+
+  const changeColorScheme = (scheme: ColorSchemeName) => {
+    setColorScheme(scheme)
+  }
+
+  colorSchemeUtil.setColorScheme = changeColorScheme
 
   return colorScheme === "light" || colorScheme === "no-preference"
     ? lightColors

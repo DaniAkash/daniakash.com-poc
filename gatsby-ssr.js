@@ -6,8 +6,13 @@
 
 // You can delete this file if you're not using it
 import React from "react"
-import { ColorProvider } from "./src/hooks/useColors"
+import { ColorProvider, ColorManager } from "./src/hooks/useColors"
+import { ThemeManager } from "./src/components/Common/ThemeManager"
 
 export const wrapRootElement = ({ element }) => (
-  <ColorProvider>{element}</ColorProvider>
+  <ColorManager>
+    <ColorProvider>
+      <ThemeManager>{element}</ThemeManager>
+    </ColorProvider>
+  </ColorManager>
 )
