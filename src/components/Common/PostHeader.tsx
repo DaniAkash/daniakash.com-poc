@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { Text, StyleSheet } from "react-native"
 import useColors from "../../hooks/useColors"
 import NativeLink from "./NativeLink"
 import { HIGHLIGHT_FONT } from "../../assets/styles/fonts"

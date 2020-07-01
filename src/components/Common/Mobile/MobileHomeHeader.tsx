@@ -20,7 +20,6 @@ import useColors from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
 import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
 import MobileHamburgerMenu from "./MobileHamburgerMenu"
-import DarkModeToggle from "../DarkModeToggle"
 
 const { createAnimatedComponent, Value } = Animated
 
@@ -137,9 +136,6 @@ const MobileHomeHeader = ({
           🍔
         </AnimatedText>
       </TouchableOpacity>
-      <View style={styles.switchWrapper}>
-        <DarkModeToggle />
-      </View>
       <View
         style={[
           styles.headerBackground,
@@ -231,16 +227,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100vw",
-  },
-  switchWrapper: {
-    position: "absolute",
-    top: 8,
-    right: -4,
-    transform: [
-      {
-        scale: 0.5,
-      },
-    ],
   },
   hamburgerClicked: {
     position: "absolute",

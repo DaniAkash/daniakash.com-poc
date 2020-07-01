@@ -8,8 +8,16 @@
 import React from "react"
 import { colorPreferenceKey } from "./src/hooks/useColors"
 import { primaryPallete, primaryDarkPallete } from "./src/assets/styles/colors"
+import DarkModeToggle from "./src/components/Common/DarkModeToggle"
 
-export const wrapRootElement = ({ element }) => element
+export const wrapRootElement = ({ element }) => {
+  return (
+    <>
+      {element}
+      <DarkModeToggle />
+    </>
+  )
+}
 
 const MagicScriptTag = () => {
   let codeToRunOnClient = `
