@@ -36,7 +36,7 @@ const MobileHamburgerMenu = ({
       onBackdropPress={toggleHamburger}
     >
       {isVisible ? (
-        <View style={[styles.modalContainer]}>
+        <View style={styles.modalContainer}>
           {menu.map((item, itemIndex) => {
             return (
               <AnimatableView
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "center",
   },
   linkWrapper: {
     margin: "1rem",
