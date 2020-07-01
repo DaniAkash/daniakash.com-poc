@@ -40,15 +40,15 @@ module.exports = {
     ],
   },
   plugins: [
-    {
-      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
-      options: {
-        devMode: false,
-        analyzerMode: "server",
-        analyzerPort: "8888",
-        defaultSizes: "gzip",
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
+    //   options: {
+    //     devMode: false,
+    //     analyzerMode: "server",
+    //     analyzerPort: "8888",
+    //     defaultSizes: "gzip",
+    //   },
+    // },
     `gatsby-plugin-react-native-web`,
     `gatsby-plugin-react-helmet`,
     {
