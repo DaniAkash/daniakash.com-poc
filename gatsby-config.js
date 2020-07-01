@@ -11,7 +11,7 @@ module.exports = {
       "Plain HTML & CSS is enough for most websites",
       "I don't know why I built this site with React Native",
       "Hit refresh & this text will change",
-      "Ace dies in One Piece",
+      `"One Piece... Does Exist!" ﹣ Edward Newgate`,
       "I'll write a new post soon. Please Trust me...",
       "Still no proof for string theory",
       "Climate change is real",

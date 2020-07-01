@@ -54,6 +54,7 @@ const HomeHeader = ({
           style={profilePicStyle}
           fluid={query.file.childImageSharp.fluid}
           alt="dani-akash"
+          loading="eager"
         />
       </A>
       <H1
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginVertical: 0,
     maxWidth: 175,
+    minHeight: 44,
   },
 })
 

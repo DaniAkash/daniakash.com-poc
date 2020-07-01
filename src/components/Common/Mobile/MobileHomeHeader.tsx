@@ -213,12 +213,13 @@ const styles = StyleSheet.create({
   triviaText: {
     position: "absolute",
     fontFamily: INFO_FONT,
+    alignItems: "center",
     fontSize: 14,
     textAlign: "center",
-    left: 24,
     marginVertical: 0,
     top: 24 + 36 + 90,
-    marginHorizontal: 48,
+    width: "100vw",
+    paddingHorizontal: 24,
   },
   profilePic: {
     position: "absolute",
