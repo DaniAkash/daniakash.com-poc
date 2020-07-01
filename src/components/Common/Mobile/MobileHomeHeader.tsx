@@ -87,12 +87,12 @@ const MobileHomeHeader = ({
   description,
   trivia,
   menu,
+  copyright,
 }: HeaderProps) => {
   const triviaText = useRef(trivia[Math.floor(Math.random() * trivia.length)])
     .current
   const range = [0, HEADER_HEIGHT]
 
-  const [value, setValue] = useState(true)
   const [hamburgerActive, setHamburgerActive] = useState(false)
 
   const toggleHamburger = () => setHamburgerActive(!hamburgerActive)
@@ -180,6 +180,7 @@ const MobileHomeHeader = ({
         toggleHamburger={toggleHamburger}
         isVisible={hamburgerActive}
         menu={menu}
+        copyright={copyright}
       />
     </>
   )

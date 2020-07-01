@@ -7,6 +7,7 @@ import { MenuType } from "./MobileNavBar"
 import NativeLink from "../NativeLink"
 import * as Animatable from "react-native-animatable"
 import { READING_FONT } from "../../../assets/styles/fonts"
+import CopyrightText from "../CopyrightText"
 
 const { createAnimatableComponent } = Animatable
 
@@ -16,12 +17,14 @@ export interface MobileHamburgerMenuProps {
   isVisible: boolean
   toggleHamburger: () => any
   menu: MenuType[]
+  copyright: string
 }
 
 const MobileHamburgerMenu = ({
   isVisible,
   toggleHamburger,
   menu,
+  copyright,
 }: MobileHamburgerMenuProps) => {
   const colors = useColors()
 
@@ -34,6 +37,7 @@ const MobileHamburgerMenu = ({
       hasBackdrop
       backdropOpacity={0.9}
       onBackdropPress={toggleHamburger}
+      style={styles.modalView}
     >
       {isVisible ? (
         <View style={styles.modalContainer}>
@@ -64,11 +68,19 @@ const MobileHamburgerMenu = ({
           })}
         </View>
       ) : null}
+      <AnimatableView
+        animation={"fadeInUp"}
+        style={styles.footer}
+        delay={100 * menu.length}
+      >
+        <CopyrightText copyright={copyright} />
+      </AnimatableView>
     </Modal>
   )
 }
 
 const styles = StyleSheet.create({
+  modalView: { margin: 0 },
   modalContainer: {
     opacity: 0.9,
     alignItems: "center",
@@ -85,6 +97,13 @@ const styles = StyleSheet.create({
   },
   linkActive: {
     textDecorationLine: "underline",
+  },
+  footer: {
+    position: "absolute",
+    width: "100vw",
+    alignItems: "center",
+    left: 0,
+    bottom: "2rem",
   },
 })
 

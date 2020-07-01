@@ -3,16 +3,12 @@ import { HeaderProps } from "./Mobile/MobileHomeHeader"
 import { View, StyleSheet } from "react-native"
 import useColors from "../../hooks/useColors"
 import { H1, P, A } from "@expo/html-elements"
-import {
-  HERO_FONT,
-  INFO_FONT,
-  HIGHLIGHT_FONT,
-  READING_FONT,
-} from "../../assets/styles/fonts"
+import { HERO_FONT, INFO_FONT, HIGHLIGHT_FONT } from "../../assets/styles/fonts"
 import Img from "gatsby-image"
 import { useStaticQuery, graphql } from "gatsby"
 import NavBar from "./NavBar"
 import BlankSpacer from "react-native-blank-spacer"
+import CopyrightText from "./CopyrightText"
 
 const HomeHeader = ({
   title,
@@ -94,9 +90,7 @@ const HomeHeader = ({
       <BlankSpacer height={16} />
       <NavBar menu={menu} />
       <BlankSpacer height={48} />
-      <P style={[styles.copyrightText, { color: colors.color2 }]}>
-        {copyright}
-      </P>
+      <CopyrightText copyright={copyright} />
     </View>
   )
 }
@@ -118,12 +112,6 @@ const styles = StyleSheet.create({
   triviaText: {
     fontFamily: INFO_FONT,
     fontSize: 12,
-    marginVertical: 0,
-    maxWidth: 175,
-  },
-  copyrightText: {
-    fontFamily: READING_FONT,
-    fontSize: 8,
     marginVertical: 0,
     maxWidth: 175,
   },
