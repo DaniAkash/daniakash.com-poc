@@ -2,7 +2,7 @@ import React from "react"
 import { Text, StyleSheet } from "react-native"
 import useColors from "../../hooks/useColors"
 import NativeLink from "./NativeLink"
-import { HIGHLIGHT_FONT } from "../../assets/styles/fonts"
+import { READING_FONT } from "../../assets/styles/fonts"
 
 const PostHeader = () => {
   const colors = useColors()
@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
     padding: "1rem",
   },
   homeText: {
-    fontFamily: HIGHLIGHT_FONT,
+    fontFamily: READING_FONT,
     fontSize: "1rem",
-    letterSpacing: "0.2rem",
+    letterSpacing: "0.1rem",
   },
 })
 

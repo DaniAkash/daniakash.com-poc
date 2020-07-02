@@ -13,8 +13,8 @@ import {
 import { H1, P } from "@expo/html-elements"
 import {
   HERO_FONT,
-  HIGHLIGHT_FONT,
   INFO_FONT,
+  READING_FONT,
 } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
   },
   infoText: {
     position: "absolute",
-    fontFamily: HIGHLIGHT_FONT,
-    fontSize: 16,
+    fontFamily: READING_FONT,
+    fontSize: "0.8rem",
     left: 16 + 24 + 90,
     marginVertical: 0,
     top: 24 + 8 + 48,

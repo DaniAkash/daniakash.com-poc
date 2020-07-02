@@ -9,7 +9,7 @@ const useResponsiveWidth = (
     timeout: 150,
   }
 ) => {
-  return useDimension({ timeout }).width * (width / 100)
+  return useDimension({ timeout: 0 }).width * (width / 100)
 }
 
 export default useResponsiveWidth

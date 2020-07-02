@@ -22,19 +22,19 @@ module.exports = {
     ],
     menu: [
       {
-        label: "blog",
+        label: "Blog",
         path: "/",
       },
       {
-        label: "about",
+        label: "About",
         path: "/about",
       },
       {
-        label: "talks",
+        label: "Talks",
         path: "/categories/tech-talks",
       },
       {
-        label: "projects",
+        label: "Projects",
         path: "/projects",
       },
     ],

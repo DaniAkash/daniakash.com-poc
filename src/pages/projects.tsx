@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native"
 import HomeLayout from "../components/Layouts/HomeLayout"
 import { useCurrentPrimaryLayout } from "../LayoutEngine/Layout/PrimaryLayout"
 import useColors from "../hooks/useColors"
-import { HIGHLIGHT_FONT } from "../assets/styles/fonts"
+import { READING_FONT } from "../assets/styles/fonts"
 
 const Projects = () => {
   const layout = useCurrentPrimaryLayout()
@@ -18,7 +18,7 @@ const Projects = () => {
         ]}
       >
         <Text style={[styles.comingSoonText, { color: colors.textColor }]}>
-          I'm working on this page...
+          👷🏽‍♂️ I'm working on this page...
         </Text>
       </View>
     </HomeLayout>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     marginTop: "25vh",
   },
   comingSoonText: {
-    fontFamily: HIGHLIGHT_FONT,
+    fontFamily: READING_FONT,
     fontSize: "1rem",
   },
 })
