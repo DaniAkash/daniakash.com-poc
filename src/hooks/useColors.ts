@@ -1,9 +1,10 @@
-import { ColorSchemeName } from "react-native-appearance"
 import {
   primaryPallete,
   primaryDarkPallete,
   pallete,
 } from "../assets/styles/colors"
+
+export type ColorSchemeName = "light" | "dark"
 
 /**
  * TODO: This whole file is a big mistake
