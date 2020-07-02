@@ -67,7 +67,7 @@ font-size: 1.1rem;
 }
 strong em {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 300;
 }
 ol {
   margin-top: 1rem;
