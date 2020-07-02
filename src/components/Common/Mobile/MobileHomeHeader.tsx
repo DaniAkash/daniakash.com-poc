@@ -127,9 +127,12 @@ const MobileHomeHeader = ({
         style={[styles.hamburgerClicked]}
       >
         <AnimatedText
-          style={[styles.hamburgerText, { fontSize: interpolator([0, 24]) }]}
+          style={[
+            styles.hamburgerText,
+            { fontSize: interpolator([0, 24]), color: colors.color4 },
+          ]}
         >
-          🍔
+          ☰
         </AnimatedText>
       </TouchableOpacity>
       <View
@@ -234,6 +237,7 @@ const styles = StyleSheet.create({
   },
   hamburgerText: {
     fontSize: 24,
+    marginTop: -2,
   },
   navbar: {
     position: "absolute",
