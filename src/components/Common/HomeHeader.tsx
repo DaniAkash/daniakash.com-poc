@@ -71,7 +71,7 @@ const HomeHeader = ({
         style={[
           styles.infoText,
           {
-            color: colors.color2,
+            color: colors.color4,
           },
         ]}
       >
@@ -82,7 +82,7 @@ const HomeHeader = ({
         style={[
           styles.triviaText,
           {
-            color: colors.color2,
+            color: colors.color4,
           },
         ]}
       >

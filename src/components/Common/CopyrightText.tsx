@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   copyrightTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   copyrightText: {
     fontFamily: READING_FONT,
