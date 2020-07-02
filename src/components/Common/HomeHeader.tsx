@@ -3,7 +3,7 @@ import { HeaderProps } from "./Mobile/MobileHomeHeader"
 import { View, StyleSheet } from "react-native"
 import useColors from "../../hooks/useColors"
 import { H1, P, A } from "@expo/html-elements"
-import { HERO_FONT, INFO_FONT, READING_FONT } from "../../assets/styles/fonts"
+import { HERO_FONT, READING_FONT } from "../../assets/styles/fonts"
 import Img from "gatsby-image"
 import { useStaticQuery, graphql } from "gatsby"
 import NavBar from "./NavBar"
@@ -111,8 +111,9 @@ const styles = StyleSheet.create({
     maxWidth: 175,
   },
   triviaText: {
-    fontFamily: INFO_FONT,
-    fontSize: 12,
+    fontFamily: READING_FONT,
+    fontSize: "0.7rem",
+    fontWeight: "300",
     marginVertical: 0,
     maxWidth: 175,
     minHeight: 44,

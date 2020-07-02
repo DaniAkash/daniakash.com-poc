@@ -11,11 +11,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { H1, P } from "@expo/html-elements"
-import {
-  HERO_FONT,
-  INFO_FONT,
-  READING_FONT,
-} from "../../../assets/styles/fonts"
+import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
 import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
@@ -212,9 +208,10 @@ const styles = StyleSheet.create({
   },
   triviaText: {
     position: "absolute",
-    fontFamily: INFO_FONT,
+    fontFamily: READING_FONT,
     alignItems: "center",
-    fontSize: 14,
+    fontSize: "0.8rem",
+    fontWeight: 300,
     textAlign: "center",
     marginVertical: 0,
     top: 24 + 36 + 90,

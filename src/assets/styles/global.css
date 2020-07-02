@@ -1,17 +1,6 @@
 @import "./reset.css";
 
 @font-face {
-  font-family: "poiret";
-  src: url("../fonts/PoiretOne-Regular.ttf") format("truetype");
-  /* src: url("webfont.eot");  IE9 Compat Modes 
-  src: url("webfont.eot?#iefix") format("embedded-opentype"),
-     IE6-IE8  url("webfont.woff2") format("woff2"),
-    Super Modern Browsers url("webfont.woff") format("woff"),
-     Pretty Modern Browsers  url("webfont.ttf") format("truetype"),
-     Safari, Android, iOS  url("webfont.svg#svgFontName") format("svg");  Legacy iOS  */
-}
-
-@font-face {
   font-family: "calorie";
   src: url("../fonts/CalorieRegular.ttf") format("truetype");
   /* src: url("webfont.eot");  IE9 Compat Modes 
