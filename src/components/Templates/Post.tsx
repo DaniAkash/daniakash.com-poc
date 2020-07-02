@@ -173,7 +173,7 @@ p small {
             >
               Discuss on Twitter
             </NativeLink>
-            <P style={{ color: colors.textColor }}>{` (or) Share on `}</P>
+            <P style={{ color: colors.textColor }}>{` or Share on `}</P>
             <NativeLink
               openNewTab
               url={`https://www.facebook.com/sharer/sharer.php?u=${encodeURI(
@@ -235,7 +235,9 @@ p small {
                   {previousPost.frontmatter.title}
                 </NativeLink>
                 <NativeLink url={previousPost.frontmatter.path || ""}>
-                  <Text style={styles.arrowIcon}>{">"}</Text>
+                  <Text style={[styles.arrowIcon, { color: colors.color2 }]}>
+                    {">"}
+                  </Text>
                 </NativeLink>
               </>
             ) : null}
