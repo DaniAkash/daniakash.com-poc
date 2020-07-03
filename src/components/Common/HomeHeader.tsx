@@ -104,7 +104,9 @@ const HomeHeader = ({
 const styles = StyleSheet.create({
   homeHeaderContainer: {},
   desktopContainer: {
+    height: "100vh",
     paddingHorizontal: "12vw",
+    justifyContent: "center",
   },
   tabletContainer: {
     paddingHorizontal: "8vw",
