@@ -19,7 +19,7 @@ const PostLayout = ({ children }: { children: ReactNode }) => {
       ]}
     >
       <ScrollView>{children}</ScrollView>
-      <PrimaryLayout at="desktop">
+      <PrimaryLayout greaterThanOrEqual="desktop">
         <PostHeader />
       </PrimaryLayout>
       <PrimaryLayout lessThan="desktop">

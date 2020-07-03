@@ -53,7 +53,7 @@ const Post = ({
         style={styles.contentContainer}
         mobileStyle={styles.mobileContent}
       >
-        <PrimaryLayout at="desktop">
+        <PrimaryLayout greaterThanOrEqual="desktop">
           <BlankSpacer height={"3.5rem"} />
         </PrimaryLayout>
         <PrimaryLayout lessThan="desktop">
