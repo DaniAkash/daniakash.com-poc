@@ -10,3 +10,9 @@
      Pretty Modern Browsers  url("webfont.ttf") format("truetype"),
      Safari, Android, iOS  url("webfont.svg#svgFontName") format("svg");  Legacy iOS  */
 }
+
+.fresnel-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

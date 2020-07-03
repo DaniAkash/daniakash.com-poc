@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react"
 import Switch from "expo-dark-mode-switch"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet } from "react-native"
 import { toggleColorScheme, getCurrentColorMode } from "../../hooks/useColors"
-import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
+import { ResponsiveView } from "../../LayoutEngine/PrimaryLayout"
 
 const DarkModeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null)
-  const layout = useCurrentPrimaryLayout()
 
   const toggleDarkMode = () => {
     toggleColorScheme()
@@ -24,15 +23,13 @@ const DarkModeToggle = () => {
 
   if (typeof isDarkMode === "boolean") {
     return (
-      <View
-        style={
-          layout === "desktop"
-            ? styles.desktopDarkModeToggle
-            : styles.mobileDarkModeToggle
-        }
+      <ResponsiveView
+        desktopStyle={styles.desktopDarkModeToggle}
+        mobileStyle={styles.mobileDarkModeToggle}
+        tabletStyle={styles.mobileDarkModeToggle}
       >
         <Switch value={isDarkMode} onChange={toggleDarkMode} />
-      </View>
+      </ResponsiveView>
     )
   }
 
