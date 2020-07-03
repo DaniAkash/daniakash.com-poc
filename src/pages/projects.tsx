@@ -1,26 +1,23 @@
 import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { Text, StyleSheet } from "react-native"
 import HomeLayout from "../components/Layouts/HomeLayout"
-import { useCurrentPrimaryLayout } from "../LayoutEngine/Layout/PrimaryLayout"
 import useColors from "../hooks/useColors"
 import { READING_FONT } from "../assets/styles/fonts"
+import { ResponsiveView } from "../LayoutEngine/PrimaryLayout"
 
 const Projects = () => {
-  const layout = useCurrentPrimaryLayout()
   const colors = useColors()
 
   return (
     <HomeLayout>
-      <View
-        style={[
-          styles.projectContainer,
-          layout === "mobile" ? styles.mobileContainer : null,
-        ]}
+      <ResponsiveView
+        style={styles.projectContainer}
+        mobileStyle={styles.mobileContainer}
       >
         <Text style={[styles.comingSoonText, { color: colors.textColor }]}>
           👷🏽‍♂️ I'm working on this page...
         </Text>
-      </View>
+      </ResponsiveView>
     </HomeLayout>
   )
 }

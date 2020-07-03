@@ -36,7 +36,7 @@ export const ResponsiveView = ({
         <View style={[style, tabletStyle]}>{children}</View>
       </PrimaryLayout>
 
-      <PrimaryLayout at="desktop">
+      <PrimaryLayout greaterThanOrEqual="desktop">
         <View style={[style, desktopStyle]}>{children}</View>
       </PrimaryLayout>
     </>

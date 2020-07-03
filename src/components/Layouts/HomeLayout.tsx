@@ -14,7 +14,6 @@ import MobileHomeHeader, {
 import { useStaticQuery, graphql } from "gatsby"
 import useColors from "../../hooks/useColors"
 import SEO from "../seo"
-import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
 import HomeHeader from "../Common/HomeHeader"
 import { PrimaryLayout } from "../../LayoutEngine/PrimaryLayout"
 
@@ -50,13 +49,6 @@ const HomeLayout = ({ children }: LayoutProps) => {
 
   const { siteMetadata } = data.site
 
-  const layout = useCurrentPrimaryLayout()
-
-  const desktopPadding = "12vw"
-  const tabletPadding = "8vw"
-  const responsivePadding =
-    layout === "desktop" ? desktopPadding : tabletPadding
-
   return (
     <>
       <PrimaryLayout greaterThan={"mobile"}>
@@ -69,14 +61,7 @@ const HomeLayout = ({ children }: LayoutProps) => {
         >
           <SEO title="Home" />
           <HomeHeader containerStyle={styles.desktopHeader} {...siteMetadata} />
-          <ScrollView
-            contentContainerStyle={[
-              styles.desktopContentSection,
-              {
-                paddingRight: responsivePadding,
-              },
-            ]}
-          >
+          <ScrollView contentContainerStyle={styles.desktopContentSection}>
             {children}
           </ScrollView>
         </View>

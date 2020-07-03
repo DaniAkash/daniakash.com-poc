@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import PostLayout from "../Layouts/PostLayout"
 import { READING_FONT } from "../../assets/styles/fonts"
 import NativeLink from "../Common/NativeLink"
-import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
 import { H1, P, Time } from "@expo/html-elements"
 import useColors from "../../hooks/useColors"
 import BlankSpacer from "react-native-blank-spacer"
@@ -39,8 +38,6 @@ const Post = ({
   },
   pageContext: { previousPost, nextPost },
 }: any) => {
-  const displayLayout = useCurrentPrimaryLayout()
-
   const [currentUrl, setCurrentUrl] = useState("")
 
   useEffect(() => {
@@ -48,8 +45,6 @@ const Post = ({
   }, [])
 
   const colors = useColors()
-
-  const isMobile = displayLayout === "mobile"
 
   return (
     <PostLayout>
