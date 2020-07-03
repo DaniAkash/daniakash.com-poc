@@ -9,6 +9,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import NavBar from "./NavBar"
 import BlankSpacer from "react-native-blank-spacer"
 import CopyrightText from "./CopyrightText"
+import { ResponsiveView } from "../../LayoutEngine/PrimaryLayout"
 
 const HomeHeader = ({
   title,
@@ -47,7 +48,11 @@ const HomeHeader = ({
   }
 
   return (
-    <View style={[styles.homeHeaderContainer, containerStyle]}>
+    <ResponsiveView
+      desktopStyle={styles.desktopContainer}
+      tabletStyle={styles.tabletContainer}
+      style={[styles.homeHeaderContainer, containerStyle]}
+    >
       {/** TODO: Add a tooltip */}
       <A href={require("../../assets/images/profile-pic.jpg")}>
         <Img
@@ -92,12 +97,18 @@ const HomeHeader = ({
       <NavBar menu={menu} />
       <BlankSpacer height={48} />
       <CopyrightText copyright={copyright} />
-    </View>
+    </ResponsiveView>
   )
 }
 
 const styles = StyleSheet.create({
   homeHeaderContainer: {},
+  desktopContainer: {
+    paddingHorizontal: "12vw",
+  },
+  tabletContainer: {
+    paddingHorizontal: "8vw",
+  },
   pageTitle: {
     fontFamily: HERO_FONT,
     fontSize: "3rem",
@@ -114,6 +125,7 @@ const styles = StyleSheet.create({
     fontFamily: READING_FONT,
     fontSize: "0.7rem",
     fontWeight: "300",
+    lineHeight: "1rem",
     marginVertical: 0,
     maxWidth: 175,
     minHeight: 44,

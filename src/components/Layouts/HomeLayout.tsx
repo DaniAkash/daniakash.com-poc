@@ -16,6 +16,7 @@ import useColors from "../../hooks/useColors"
 import SEO from "../seo"
 import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
 import HomeHeader from "../Common/HomeHeader"
+import { PrimaryLayout } from "../../LayoutEngine/PrimaryLayout"
 
 const { createAnimatedComponent, Value, event } = Animated
 
@@ -56,68 +57,64 @@ const HomeLayout = ({ children }: LayoutProps) => {
   const responsivePadding =
     layout === "desktop" ? desktopPadding : tabletPadding
 
-  if (layout !== "mobile") {
-    return (
-      <View
-        style={[
-          styles.pageContainer,
-          styles.desktopPageContainer,
-          { backgroundColor: colors.backgroundColor },
-        ]}
-      >
-        <SEO title="Home" />
-        <HomeHeader
-          containerStyle={[
-            styles.desktopHeader,
-            {
-              paddingHorizontal: responsivePadding,
-            },
-          ]}
-          {...siteMetadata}
-        />
-        <ScrollView
-          contentContainerStyle={[
-            styles.desktopContentSection,
-            {
-              paddingRight: responsivePadding,
-            },
+  return (
+    <>
+      <PrimaryLayout greaterThan={"mobile"}>
+        <View
+          style={[
+            styles.pageContainer,
+            styles.desktopPageContainer,
+            { backgroundColor: colors.backgroundColor },
           ]}
         >
-          {children}
-        </ScrollView>
-      </View>
-    )
-  }
-
-  return (
-    <View
-      style={[
-        styles.pageContainer,
-        { backgroundColor: colors.backgroundColor },
-      ]}
-    >
-      <SEO title="Home" />
-      <AnimatedScrollView
-        contentContainerStyle={[
-          styles.scrollViewBodyContainer,
-          { backgroundColor: colors.backgroundColor },
-        ]}
-        scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        onScroll={event([
-          {
-            nativeEvent: {
-              contentOffset: {
-                y: animatedScrollIndex,
+          <SEO title="Home" />
+          <HomeHeader containerStyle={styles.desktopHeader} {...siteMetadata} />
+          <ScrollView
+            contentContainerStyle={[
+              styles.desktopContentSection,
+              {
+                paddingRight: responsivePadding,
               },
-            },
-          },
-        ])}
-      >
-        {children}
-      </AnimatedScrollView>
-      <MobileHomeHeader {...siteMetadata} animatedValue={animatedScrollIndex} />
-    </View>
+            ]}
+          >
+            {children}
+          </ScrollView>
+        </View>
+      </PrimaryLayout>
+      <PrimaryLayout at="mobile">
+        <View
+          style={[
+            styles.pageContainer,
+            { backgroundColor: colors.backgroundColor },
+          ]}
+        >
+          <SEO title="Home" />
+          <AnimatedScrollView
+            contentContainerStyle={[
+              styles.scrollViewBodyContainer,
+              { backgroundColor: colors.backgroundColor },
+            ]}
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
+            onScroll={event([
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    y: animatedScrollIndex,
+                  },
+                },
+              },
+            ])}
+          >
+            {children}
+          </AnimatedScrollView>
+          <MobileHomeHeader
+            {...siteMetadata}
+            animatedValue={animatedScrollIndex}
+          />
+        </View>
+      </PrimaryLayout>
+    </>
   )
 }
 

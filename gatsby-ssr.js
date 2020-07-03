@@ -9,13 +9,14 @@ import React from "react"
 import { colorPreferenceKey } from "./src/hooks/useColors"
 import { primaryPallete, primaryDarkPallete } from "./src/assets/styles/colors"
 import DarkModeToggle from "./src/components/Common/DarkModeToggle"
+import { PrimaryLayoutProvider } from "./src/LayoutEngine/PrimaryLayout"
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <>
+    <PrimaryLayoutProvider>
       {element}
       <DarkModeToggle />
-    </>
+    </PrimaryLayoutProvider>
   )
 }
 

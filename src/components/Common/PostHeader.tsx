@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   homeText: {
     fontFamily: READING_FONT,
     fontSize: "1rem",
-    letterSpacing: "0.1rem",
   },
 })
 

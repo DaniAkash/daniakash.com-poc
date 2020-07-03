@@ -3,14 +3,11 @@ import { View, StyleSheet, ScrollView } from "react-native"
 import "../../assets/styles/global.css"
 import useColors from "../../hooks/useColors"
 import PostHeader from "../Common/PostHeader"
-import { useCurrentPrimaryLayout } from "../../LayoutEngine/Layout/PrimaryLayout"
+import { PrimaryLayout } from "../../LayoutEngine/PrimaryLayout"
 import MobilePostHeader from "../Common/Mobile/MobilePostHeader"
 
 const PostLayout = ({ children }: { children: ReactNode }) => {
   const colors = useColors()
-  const displayLayout = useCurrentPrimaryLayout()
-
-  const isDesktop = displayLayout === "desktop"
 
   return (
     <View
@@ -22,8 +19,12 @@ const PostLayout = ({ children }: { children: ReactNode }) => {
       ]}
     >
       <ScrollView>{children}</ScrollView>
-      {isDesktop ? <PostHeader /> : null}
-      {!isDesktop ? <MobilePostHeader /> : null}
+      <PrimaryLayout at="desktop">
+        <PostHeader />
+      </PrimaryLayout>
+      <PrimaryLayout lessThan="desktop">
+        <MobilePostHeader />
+      </PrimaryLayout>
     </View>
   )
 }
