@@ -6,6 +6,9 @@
 import React from "react"
 import DarkModeToggle from "./src/components/Common/DarkModeToggle"
 import { PrimaryLayoutProvider } from "./src/LayoutEngine/PrimaryLayout"
+import "./src/assets/styles/global.css"
+import "typeface-roboto"
+import "typeface-roboto-mono"
 
 // You can delete this file if you're not using it
 
