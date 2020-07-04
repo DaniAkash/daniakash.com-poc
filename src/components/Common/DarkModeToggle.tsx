@@ -3,9 +3,11 @@ import Switch from "expo-dark-mode-switch"
 import { StyleSheet } from "react-native"
 import { toggleColorScheme, getCurrentColorMode } from "../../hooks/useColors"
 import { ResponsiveView } from "../../LayoutEngine/PrimaryLayout"
+import { usePageStateStore } from "../../store/PageState"
 
 const DarkModeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null)
+  const { setIsPageLoaded } = usePageStateStore()
 
   const toggleDarkMode = () => {
     toggleColorScheme()
@@ -14,6 +16,7 @@ const DarkModeToggle = () => {
 
   useEffect(() => {
     const currentMode = getCurrentColorMode()
+    setIsPageLoaded(true)
     if (currentMode === "dark") {
       setIsDarkMode(true)
     } else {

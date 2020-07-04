@@ -102,11 +102,12 @@ const HomeHeader = ({
 }
 
 const styles = StyleSheet.create({
-  homeHeaderContainer: {},
-  desktopContainer: {
+  homeHeaderContainer: {
     height: "100vh",
-    paddingHorizontal: "12vw",
     justifyContent: "center",
+  },
+  desktopContainer: {
+    paddingHorizontal: "12vw",
   },
   tabletContainer: {
     paddingHorizontal: "8vw",
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     lineHeight: "1rem",
     marginVertical: 0,
     maxWidth: 175,
-    minHeight: 44,
+    minHeight: 48,
   },
 })
 
