@@ -40,6 +40,7 @@ module.exports = {
     ],
   },
   plugins: [
+    `gatsby-plugin-loadable-components-ssr`,
     // {
     //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
     //   options: {
