@@ -40,8 +40,13 @@ module.exports = {
     ],
   },
   plugins: [
-    // {
-    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
+    {
+      resolve: "gatsby-plugin-zopfli",
+      options: {
+        extensions: ["css", "html", "js", "svg"],
+      },
+    },
+    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2", // {
     //   options: {
     //     devMode: false,
     //     analyzerMode: "server",
