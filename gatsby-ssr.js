@@ -9,22 +9,20 @@ import React from "react"
 import { colorPreferenceKey } from "./src/hooks/useColors"
 import { primaryPallete, primaryDarkPallete } from "./src/assets/styles/colors"
 import DarkModeToggle from "./src/components/Common/DarkModeToggle"
-import { PrimaryLayoutProvider } from "./src/LayoutEngine/PrimaryLayout"
-import Overlay from "./src/components/Common/Overlay"
-import { PageStateProvider } from "./src/store/PageState"
+import {
+  PrimaryLayoutProvider,
+  PrimaryLayoutStyle,
+} from "./src/LayoutEngine/PrimaryLayout"
 import "./src/assets/styles/global.css"
 import "typeface-roboto"
 import "typeface-roboto-mono"
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <PageStateProvider>
-      <PrimaryLayoutProvider>
-        {element}
-        <DarkModeToggle />
-        <Overlay />
-      </PrimaryLayoutProvider>
-    </PageStateProvider>
+    <PrimaryLayoutProvider>
+      {element}
+      <DarkModeToggle />
+    </PrimaryLayoutProvider>
   )
 }
 
@@ -81,5 +79,21 @@ const MagicScriptTag = () => {
 }
 
 export const onRenderBody = ({ setPreBodyComponents }) => {
-  setPreBodyComponents(<MagicScriptTag />)
+  setPreBodyComponents(<MagicScriptTag key="dark-mode-toggler" />)
+}
+
+export const onPreRenderHTML = ({
+  getHeadComponents,
+  replaceHeadComponents,
+}) => {
+  replaceHeadComponents(
+    [
+      <style
+        key="custom-styles"
+        dangerouslySetInnerHTML={{
+          __html: PrimaryLayoutStyle,
+        }}
+      />,
+    ].concat(getHeadComponents())
+  )
 }

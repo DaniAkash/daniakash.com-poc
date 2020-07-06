@@ -5,6 +5,7 @@ import { ViewStyle } from "@expo/html-elements/build/primitives/View"
 export const {
   MediaContextProvider: PrimaryLayoutProvider,
   Media: PrimaryLayout,
+  createMediaStyle,
 } = createMedia({
   breakpoints: {
     mobile: 0,
@@ -12,6 +13,8 @@ export const {
     desktop: 1025,
   },
 })
+
+export const PrimaryLayoutStyle = createMediaStyle()
 
 export const ResponsiveView = ({
   children,
