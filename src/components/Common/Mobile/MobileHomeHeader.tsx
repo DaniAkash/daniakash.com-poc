@@ -9,15 +9,15 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
+  useWindowDimensions,
 } from "react-native"
 import { H1, P } from "@expo/html-elements"
 import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
-import useResponsiveWidth from "../../../hooks/useResponsiveWidth"
 import MobileHamburgerMenu from "./MobileHamburgerMenu"
 
-const { createAnimatedComponent, Value } = Animated
+const { createAnimatedComponent } = Animated
 
 const AnimatedView = createAnimatedComponent(View)
 const AnimatedH1 = createAnimatedComponent(H1)
@@ -48,8 +48,8 @@ const AnimatedTitle = ({
     customInputRange?: [number, number] | undefined
   ) => Animated.AnimatedInterpolation
 }) => {
+  const { width: screenWidth } = useWindowDimensions()
   const colors = useColors()
-  const screenWidth = useResponsiveWidth(100)
   const [titleWidth, setTitleWidth] = useState(136)
   const [titleHeight, setTitleHeight] = useState(48)
   const onTitleLayout = (event: LayoutChangeEvent) => {

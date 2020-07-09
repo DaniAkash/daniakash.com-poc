@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "50vh",
   },
   mobileContainer: {
     marginTop: "25vh",

@@ -114,7 +114,10 @@ const styles = StyleSheet.create({
   desktopHeader: {
     alignSelf: "center",
   },
-  desktopContentSection: {},
+  desktopContentSection: {
+    flex: 1,
+    marginRight: "10vw",
+  },
   scrollViewBodyContainer: {
     marginTop: HEADER_HEIGHT - 16,
     borderTopLeftRadius: 14,
