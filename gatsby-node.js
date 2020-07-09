@@ -37,7 +37,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
     if (hasNextPost) {
       let targetPost = nodes?.[nodeIndex - 1]
-      console.log(targetPost)
       if (!targetPost?.frontmatter?.path || targetPost?.frontmatter?.draft) {
         targetPost = nodes?.[nodeIndex - 2]
       }
@@ -46,7 +45,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
     if (hasPrevPost) {
       let targetPost = nodes?.[nodeIndex + 1]
-      console.log(targetPost)
       if (!targetPost?.frontmatter?.path || targetPost?.frontmatter?.draft) {
         targetPost = nodes?.[nodeIndex + 2]
       }
