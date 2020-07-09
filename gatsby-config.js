@@ -9,7 +9,7 @@ module.exports = {
       "I learnt javascript cuz I wanted to do form validation",
       "☝This display pic was taken so many years ago...",
       "Plain HTML & CSS is enough for most websites",
-      "I don't know why I built this site with React Native",
+      "This site was built with React Native as an experiment",
       "Hit refresh & this text will change",
       `"One Piece... Does Exist!" ﹣ Edward Newgate`,
       "I'll write a new post soon. Please Trust me...",
