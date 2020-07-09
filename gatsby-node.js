@@ -10,22 +10,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     query MyQuery {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: frontmatter___date }
-        filter: {
-          frontmatter: {
-            draft: { ne: true }
-            url: { eq: null }
-            path: { ne: null }
-          }
-        }
-      ) {
+      allMarkdownRemark(sort: { order: DESC, fields: frontmatter___date }) {
         nodes {
           frontmatter {
             path
             title
             tags
             category
+            draft
           }
         }
       }
@@ -37,9 +29,29 @@ exports.createPages = async ({ graphql, actions }) => {
   }
   const { nodes = [] } = result.data.allMarkdownRemark
   nodes.forEach((node, nodeIndex) => {
-    const nextPost = nodeIndex === 0 ? null : nodes[nodeIndex - 1]
-    const previousPost =
-      nodeIndex === nodes.length - 1 ? null : nodes[nodeIndex + 1]
+    let nextPost = null
+    let previousPost = null
+
+    let hasNextPost = !(nodeIndex === 0)
+    let hasPrevPost = !(nodeIndex === nodes.length - 1)
+
+    if (hasNextPost) {
+      let targetPost = nodes?.[nodeIndex - 1]
+      console.log(targetPost)
+      if (!targetPost?.frontmatter?.path || targetPost?.frontmatter?.draft) {
+        targetPost = nodes?.[nodeIndex - 2]
+      }
+      nextPost = targetPost
+    }
+
+    if (hasPrevPost) {
+      let targetPost = nodes?.[nodeIndex + 1]
+      console.log(targetPost)
+      if (!targetPost?.frontmatter?.path || targetPost?.frontmatter?.draft) {
+        targetPost = nodes?.[nodeIndex + 2]
+      }
+      previousPost = targetPost
+    }
 
     const { path: postPath } = node.frontmatter
     if (postPath) {
