@@ -111,9 +111,7 @@ const styles = StyleSheet.create({
   desktopPageContainer: {
     flexDirection: "row",
   },
-  desktopHeader: {
-    alignSelf: "center",
-  },
+  desktopHeader: {},
   desktopContentSection: {
     flex: 1,
     marginRight: "10vw",
