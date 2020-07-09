@@ -36,17 +36,23 @@ exports.createPages = async ({ graphql, actions }) => {
     let hasPrevPost = !(nodeIndex === nodes.length - 1)
 
     if (hasNextPost) {
-      let targetPost = nodes?.[nodeIndex - 1]
-      if (!targetPost?.frontmatter?.path || targetPost?.frontmatter?.draft) {
-        targetPost = nodes?.[nodeIndex - 2]
+      let targetPost = _.get(nodes, `[${nodeIndex - 1}]`)
+      if (
+        !_.get(targetPost, "frontmatter.path") ||
+        _.get(targetPost, "frontmatter.draft")
+      ) {
+        targetPost = _.get(nodes, `[${nodeIndex - 2}]`)
       }
       nextPost = targetPost
     }
 
     if (hasPrevPost) {
-      let targetPost = nodes?.[nodeIndex + 1]
-      if (!targetPost?.frontmatter?.path || targetPost?.frontmatter?.draft) {
-        targetPost = nodes?.[nodeIndex + 2]
+      let targetPost = _.get(nodes, `[${nodeIndex + 1}]`)
+      if (
+        !_.get(targetPost, "frontmatter.path") ||
+        _.get(targetPost, "frontmatter.draft")
+      ) {
+        targetPost = _.get(nodes, `[${nodeIndex + 2}]`)
       }
       previousPost = targetPost
     }
