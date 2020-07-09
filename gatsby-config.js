@@ -85,13 +85,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Dani Akash`,
+        short_name: `Dani`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        background_color: `white`,
+        theme_color: `rgba(2, 62, 114, 1)`,
+        display: `standalone`,
+        icon: `src/assets/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-offline`,
