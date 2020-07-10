@@ -1,8 +1,23 @@
 module.exports = {
   siteMetadata: {
     title: `Dani Akash`,
-    description: `Writer • Speaker • Hacker`,
-    author: `@dani_akash_`,
+    info: `Writer • Speaker • Hacker`,
+    description: `Dani Akash is a JavaScript developer from Chennai who builds mobile and web applications with React. While he is not coding, he teaches people how to code. He spends his time building open-source projects and writing blogs.`,
+    twitterHandle: `@dani_akash_`,
+    links: {
+      github: `https://github.com/DaniAkash`,
+      trello: `https://trello.com/b/1zB34Jab/whats-dani-upto`,
+      nodemodules: `https://nodemodules.xyz`,
+      javascriptByExample: `https://www.amazon.in/JavaScript-Example-Dani-Akash/dp/1788293967`,
+      twitter: `https://twitter.com/dani_akash_`,
+      scienceandstardust: `https://scienceandstardust.com`,
+      myanimelist: `https://myanimelist.net/profile/PirateHunter`,
+      linkedIn: `https://www.linkedin.com/in/daniakash`,
+      stackoverflow: `https://stackoverflow.com/users/5597641/dani-akash`,
+      instagram: `https://instagram.com/dani_akash_`,
+      reddit: `https://www.reddit.com/user/dani_akash_`,
+      facebook: `https://facebook.com/DaniAkash`,
+    },
     copyright: `© ${new Date().getFullYear()}.`,
     trivia: [
       "I sometimes code while listening to music",
@@ -81,7 +96,36 @@ module.exports = {
     `gatsby-plugin-lodash`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: "gatsby-remark-external-links",
+            options: {
+              target: "_blank",
+              rel: "noopener noreferrer",
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-next-seo",
+      options: {
+        openGraph: {
+          type: "website",
+          locale: "en_IN",
+          url: "https://daniakash.com/",
+          site_name: "DaniAkash",
+        },
+        twitter: {
+          handle: "@dani_akash_",
+          site: "@dani_akash_",
+          cardType: "summary_large_image",
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
