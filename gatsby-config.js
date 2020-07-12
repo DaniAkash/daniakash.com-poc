@@ -38,7 +38,7 @@ module.exports = {
     ],
     menu: [
       {
-        label: "Blog",
+        label: "Home",
         path: "/",
       },
       {

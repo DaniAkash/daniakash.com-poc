@@ -4,7 +4,8 @@ import PostSummary from "../components/Common/PostSummary"
 import BlankSpacer from "react-native-blank-spacer"
 import HomeLayout from "../components/Layouts/HomeLayout"
 import { useStaticQuery, graphql } from "gatsby"
-import { GatsbySeo } from "gatsby-plugin-next-seo"
+import { GatsbySeo, BreadcrumbJsonLd } from "gatsby-plugin-next-seo"
+import { MenuType } from "../components/Common/Mobile/MobileNavBar"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -33,6 +34,10 @@ const IndexPage = () => {
           title
           description
           copyright
+          menu {
+            label
+            path
+          }
           links {
             twitter
           }
@@ -45,12 +50,20 @@ const IndexPage = () => {
     (each: any) => each.node.frontmatter
   )
 
-  const { title, twitterHandle, description, homepage } = data.site.siteMetadata
+  const {
+    title,
+    twitterHandle,
+    description,
+    homepage,
+    menu,
+  } = data.site.siteMetadata
+
+  const pageTitle = `${title}'s personal blog | ${title}`
 
   return (
     <HomeLayout>
       <GatsbySeo
-        title={title}
+        title={pageTitle}
         description={description}
         canonical={homepage}
         twitter={{
@@ -60,7 +73,7 @@ const IndexPage = () => {
         }}
         openGraph={{
           url: homepage,
-          title,
+          title: pageTitle,
           description,
           images: [
             {
@@ -76,8 +89,19 @@ const IndexPage = () => {
               alt: "Dani Akash",
             },
           ],
-          site_name: `Home - ${title}`,
+          site_name: pageTitle,
         }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={menu
+          .slice(0, 1)
+          .map((menuItem: MenuType, menuItemIndex: number) => {
+            return {
+              position: menuItemIndex + 1,
+              name: menuItem.label,
+              item: homepage + menuItem.path,
+            }
+          })}
       />
       <BlankSpacer height={48} />
       {posts.map((post, i) => {

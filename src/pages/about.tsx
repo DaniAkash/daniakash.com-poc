@@ -1,21 +1,130 @@
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { StyleSheet } from "react-native"
 import HomeLayout from "../components/Layouts/HomeLayout"
 import BlankSpacer from "react-native-blank-spacer"
 import { H2, P } from "@expo/html-elements"
-import { HERO_FONT, READING_FONT } from "../assets/styles/fonts"
+import { READING_FONT } from "../assets/styles/fonts"
 import useColors from "../hooks/useColors"
 import NativeLink from "../components/Common/NativeLink"
+import { useStaticQuery, graphql } from "gatsby"
+import { ResponsiveView, PrimaryLayout } from "../LayoutEngine/PrimaryLayout"
+import { GatsbySeo, BreadcrumbJsonLd } from "gatsby-plugin-next-seo"
+import { MenuType } from "../components/Common/Mobile/MobileNavBar"
 
 const About = () => {
+  const data = useStaticQuery(graphql`
+    query AboutPageQuery {
+      site {
+        siteMetadata {
+          homepage
+          twitterHandle
+          title
+          description
+          copyright
+          menu {
+            label
+            path
+          }
+          links {
+            twitter
+            trello
+            stackoverflow
+            scienceandstardust
+            reddit
+            nodemodules
+            myanimelist
+            javascriptByExample
+            linkedIn
+            instagram
+            github
+            facebook
+          }
+        }
+      }
+    }
+  `)
+
   const colors = useColors()
 
   const regularStyle = [styles.regularText, { color: colors.textColor }]
 
+  const {
+    title,
+    twitterHandle,
+    description,
+    homepage,
+    menu,
+    links,
+  } = data.site.siteMetadata
+
+  const {
+    twitter,
+    trello,
+    stackoverflow,
+    scienceandstardust,
+    reddit,
+    nodemodules,
+    myanimelist,
+    javascriptByExample,
+    linkedIn,
+    instagram,
+    github,
+    facebook,
+  } = links
+
+  const pageTitle = `About | ${title}`
+
   return (
     <HomeLayout>
-      <BlankSpacer height={48} />
-      <View style={styles.aboutContainer}>
+      <GatsbySeo
+        title={pageTitle}
+        description={description}
+        canonical={homepage}
+        twitter={{
+          handle: twitterHandle,
+          site: twitterHandle,
+          cardType: "summary_large_image",
+        }}
+        openGraph={{
+          url: homepage,
+          title: pageTitle,
+          description,
+          images: [
+            {
+              url: homepage + require("../assets/images/profile-pic.jpg"),
+              width: 460,
+              height: 460,
+              alt: "Dani Akash",
+            },
+            {
+              url: homepage + require("../assets/images/favicon.png"),
+              width: 600,
+              height: 600,
+              alt: "Dani Akash",
+            },
+          ],
+          site_name: pageTitle,
+        }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={menu
+          .slice(0, 2)
+          .map((menuItem: MenuType, menuItemIndex: number) => {
+            return {
+              position: menuItemIndex + 1,
+              name: menuItem.label,
+              item: homepage + menuItem.path,
+            }
+          })}
+      />
+      <PrimaryLayout lessThan={"tablet"}>
+        <BlankSpacer height={48} />
+      </PrimaryLayout>
+      <ResponsiveView
+        style={styles.aboutContainer}
+        desktopStyle={styles.centerPage}
+        tabletStyle={styles.centerPage}
+      >
         <H2 style={[styles.welcomeTitle, { color: colors.color4 }]}>Hi!</H2>
         <P style={regularStyle}>
           <P style={[styles.boldText, { color: colors.color4 }]}>I'm Dani</P>, I
@@ -27,7 +136,7 @@ const About = () => {
           I do lots of{" "}
           <NativeLink
             openNewTab
-            url={`https://github.com/DaniAkash`}
+            url={github}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -36,7 +145,7 @@ const About = () => {
           work which you can follow in my{" "}
           <NativeLink
             openNewTab
-            url={`https://trello.com/b/1zB34Jab/whats-dani-upto`}
+            url={trello}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -50,7 +159,7 @@ const About = () => {
           Checkout my tech blog{" "}
           <NativeLink
             openNewTab
-            url={`https://nodemodules.xyz`}
+            url={nodemodules}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -59,7 +168,7 @@ const About = () => {
           📦 & my book{" "}
           <NativeLink
             openNewTab
-            url={`https://www.amazon.in/JavaScript-Example-Dani-Akash/dp/1788293967`}
+            url={javascriptByExample}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -71,7 +180,7 @@ const About = () => {
           I'd love to talk science, DM me on{" "}
           <NativeLink
             openNewTab
-            url={`https://twitter.com/dani_akash_`}
+            url={twitter}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -81,7 +190,7 @@ const About = () => {
           checkout my tiny science blog{" "}
           <NativeLink
             openNewTab
-            url={`https://scienceandstardust.com`}
+            url={scienceandstardust}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -93,7 +202,7 @@ const About = () => {
           If you like watching anime, send me a friend request on{" "}
           <NativeLink
             openNewTab
-            url={`https://myanimelist.net/profile/PirateHunter`}
+            url={myanimelist}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -104,7 +213,7 @@ const About = () => {
         <P style={[regularStyle, styles.linkArea]}>
           <NativeLink
             openNewTab
-            url={`https://twitter.com/dani_akash_`}
+            url={twitter}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -113,7 +222,7 @@ const About = () => {
           ﹣{" "}
           <NativeLink
             openNewTab
-            url={`https://github.com/DaniAkash`}
+            url={github}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -122,7 +231,7 @@ const About = () => {
           ﹣{" "}
           <NativeLink
             openNewTab
-            url={`https://www.linkedin.com/in/daniakash`}
+            url={linkedIn}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -131,7 +240,7 @@ const About = () => {
           ﹣{" "}
           <NativeLink
             openNewTab
-            url={`https://stackoverflow.com/users/5597641/dani-akash`}
+            url={stackoverflow}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -140,7 +249,7 @@ const About = () => {
           ﹣{" "}
           <NativeLink
             openNewTab
-            url={`https://instagram.com/dani_akash_`}
+            url={instagram}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
@@ -149,15 +258,26 @@ const About = () => {
           ﹣{" "}
           <NativeLink
             openNewTab
-            url={`https://www.reddit.com/user/dani_akash_`}
+            url={reddit}
             style={{ color: colors.color4 }}
             hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
           >
             Reddit
+          </NativeLink>{" "}
+          ﹣{" "}
+          <NativeLink
+            openNewTab
+            url={facebook}
+            style={{ color: colors.color4 }}
+            hoveredStyle={[{ color: colors.color2 }, styles.linkText]}
+          >
+            Facebook
           </NativeLink>
         </P>
-      </View>
-      <BlankSpacer height={"2rem"} />
+      </ResponsiveView>
+      <PrimaryLayout lessThan={"tablet"}>
+        <BlankSpacer height={"2rem"} />
+      </PrimaryLayout>
     </HomeLayout>
   )
 }
@@ -165,6 +285,10 @@ const About = () => {
 const styles = StyleSheet.create({
   aboutContainer: {
     marginHorizontal: 24,
+  },
+  centerPage: {
+    height: "100vh",
+    justifyContent: "center",
   },
   welcomeTitle: {
     fontFamily: READING_FONT,
