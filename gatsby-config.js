@@ -2,8 +2,9 @@ module.exports = {
   siteMetadata: {
     title: `Dani Akash`,
     info: `Writer • Speaker • Hacker`,
-    description: `Dani Akash is a JavaScript developer from Chennai who builds mobile and web applications with React. While he is not coding, he teaches people how to code. He spends his time building open-source projects and writing blogs.`,
+    description: `Dani Akash is a JavaScript developer from Chennai who builds mobile and web applications with React. While he is not coding, he teaches people how to code. He spends his free time building open-source projects and writing blogs.`,
     twitterHandle: `@dani_akash_`,
+    homepage: `https://daniakash.com`,
     links: {
       github: `https://github.com/DaniAkash`,
       trello: `https://trello.com/b/1zB34Jab/whats-dani-upto`,
@@ -61,7 +62,8 @@ module.exports = {
         extensions: ["css", "html", "js", "svg"],
       },
     },
-    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2", // {
+    // {
+    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
     //   options: {
     //     devMode: false,
     //     analyzerMode: "server",

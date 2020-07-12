@@ -13,7 +13,6 @@ import MobileHomeHeader, {
 } from "../Common/Mobile/MobileHomeHeader"
 import { useStaticQuery, graphql } from "gatsby"
 import useColors from "../../hooks/useColors"
-import SEO from "../seo"
 import HomeHeader from "../Common/HomeHeader"
 import { PrimaryLayout } from "../../LayoutEngine/PrimaryLayout"
 
@@ -31,8 +30,9 @@ const HomeLayout = ({ children }: LayoutProps) => {
       site {
         siteMetadata {
           title
+          info
           description
-          author
+          twitterHandle
           copyright
           menu {
             label
@@ -59,7 +59,6 @@ const HomeLayout = ({ children }: LayoutProps) => {
             { backgroundColor: colors.backgroundColor },
           ]}
         >
-          <SEO title="Home" />
           <HomeHeader containerStyle={styles.desktopHeader} {...siteMetadata} />
           <ScrollView contentContainerStyle={styles.desktopContentSection}>
             {children}
@@ -73,7 +72,6 @@ const HomeLayout = ({ children }: LayoutProps) => {
             { backgroundColor: colors.backgroundColor },
           ]}
         >
-          <SEO title="Home" />
           <AnimatedScrollView
             contentContainerStyle={[
               styles.scrollViewBodyContainer,

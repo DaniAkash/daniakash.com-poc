@@ -32,6 +32,7 @@ export type HeaderProps = {
   animatedValue: Animated.Value
   title: string
   description: string
+  info: string
   trivia: string[]
   menu: MenuType[]
   copyright: string
@@ -80,7 +81,7 @@ const AnimatedTitle = ({
 const MobileHomeHeader = ({
   animatedValue,
   title,
-  description,
+  info,
   trivia,
   menu,
   copyright,
@@ -157,7 +158,7 @@ const MobileHomeHeader = ({
       />
       <AnimatedTitle title={title} interpolator={interpolator} />
       <AnimatedP style={[styles.infoText, { color: colors.color4 }, disapper]}>
-        {description}
+        {info}
       </AnimatedP>
       <AnimatedP
         numberOfLines={2}

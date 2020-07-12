@@ -33,7 +33,7 @@ const Post = ({
       },
     },
     site: {
-      siteMetadata: { author, title: authorTitle },
+      siteMetadata: { twitterHandle, title: authorTitle },
     },
   },
   pageContext: { previousPost, nextPost },
@@ -171,7 +171,7 @@ const Post = ({
           </View>
         </ResponsiveView>
         <BlankSpacer height={"2rem"} />
-        <ProfileCard twitterHandle={author} title={authorTitle} />
+        <ProfileCard twitterHandle={twitterHandle} title={authorTitle} />
       </ResponsiveView>
       <BlankSpacer height={56} />
     </PostLayout>
@@ -197,7 +197,7 @@ export const query = graphql`
     }
     site(siteMetadata: {}) {
       siteMetadata {
-        author
+        twitterHandle
         title
       }
     }

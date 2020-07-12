@@ -13,7 +13,7 @@ import { ResponsiveView } from "../../LayoutEngine/PrimaryLayout"
 
 const HomeHeader = ({
   title,
-  description,
+  info,
   trivia,
   menu,
   copyright,
@@ -80,7 +80,7 @@ const HomeHeader = ({
           },
         ]}
       >
-        {description}
+        {info}
       </P>
       <BlankSpacer height={16} />
       <P
