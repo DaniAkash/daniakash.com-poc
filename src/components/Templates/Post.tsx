@@ -15,6 +15,12 @@ import TwitterIcon from "../../assets/svg/twitter-icon.min.svg"
 import ProfileCard from "../ProfileCard"
 import PostStyle from "../Common/PostStyle"
 import { PrimaryLayout, ResponsiveView } from "../../LayoutEngine/PrimaryLayout"
+import {
+  GatsbySeo,
+  BlogPostJsonLd,
+  BreadcrumbJsonLd,
+} from "gatsby-plugin-next-seo"
+import { kebabCase } from "lodash"
 
 const Post = ({
   data: {
@@ -33,7 +39,7 @@ const Post = ({
       },
     },
     site: {
-      siteMetadata: { twitterHandle, title: authorTitle },
+      siteMetadata: { twitterHandle, title: authorTitle, homepage, menu },
     },
   },
   pageContext: { previousPost, nextPost },
@@ -46,8 +52,74 @@ const Post = ({
 
   const colors = useColors()
 
+  const pageTitle = `${title} | ${authorTitle}`
+  const categoryUrl = "/" + kebabCase(category)
+
   return (
     <PostLayout>
+      <GatsbySeo
+        title={pageTitle}
+        description={description}
+        canonical={homepage}
+        twitter={{
+          handle: twitterHandle,
+          site: twitterHandle,
+          cardType: "summary_large_image",
+        }}
+        openGraph={{
+          title,
+          description,
+          url: homepage + path,
+          type: "article",
+          article: {
+            publishedTime: date,
+            modifiedTime: date,
+            section: category,
+            authors: [homepage],
+            tags,
+          },
+          images: [
+            // {
+            //   url: "https://www.test.ie/images/cover.jpg",
+            //   width: 850,
+            //   height: 650,
+            //   alt: "Photo of text",
+            // },
+          ],
+        }}
+      />
+      <BlogPostJsonLd
+        url={homepage + path}
+        title={title}
+        images={
+          [
+            // "https://example.com/photos/1x1/photo.jpg"
+          ]
+        }
+        datePublished={date}
+        dateModified={date}
+        authorName={authorTitle}
+        description={description}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: menu[0].label,
+            item: homepage + menu[0].path,
+          },
+          {
+            position: 2,
+            name: "Category",
+            item: homepage + categoryUrl,
+          },
+          {
+            position: 3,
+            name: title,
+            item: homepage + path,
+          },
+        ]}
+      />
       <PostStyle />
       <ResponsiveView
         style={styles.contentContainer}
@@ -195,10 +267,17 @@ export const query = graphql`
         url
       }
     }
-    site(siteMetadata: {}) {
+    site {
       siteMetadata {
+        homepage
         twitterHandle
         title
+        description
+        copyright
+        menu {
+          label
+          path
+        }
       }
     }
   }
