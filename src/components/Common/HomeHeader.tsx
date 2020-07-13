@@ -2,7 +2,7 @@ import React, { useRef } from "react"
 import { HeaderProps } from "./Mobile/MobileHomeHeader"
 import { View, StyleSheet } from "react-native"
 import useColors from "../../hooks/useColors"
-import { H1, P, A } from "@expo/html-elements"
+import { H1, P, A, H2 } from "@expo/html-elements"
 import { HERO_FONT, READING_FONT } from "../../assets/styles/fonts"
 import Img from "gatsby-image"
 import { useStaticQuery, graphql } from "gatsby"
@@ -18,6 +18,7 @@ const HomeHeader = ({
   menu,
   copyright,
   containerStyle,
+  isHeader = true,
 }: HeaderProps) => {
   const triviaText = useRef(trivia[Math.floor(Math.random() * trivia.length)])
     .current
@@ -47,6 +48,8 @@ const HomeHeader = ({
     borderRadius: "24px",
   }
 
+  const HeaderComponent = isHeader ? H1 : H2
+
   return (
     <ResponsiveView
       desktopStyle={styles.desktopContainer}
@@ -62,7 +65,7 @@ const HomeHeader = ({
           loading="eager"
         />
       </A>
-      <H1
+      <HeaderComponent
         style={[
           styles.pageTitle,
           {
@@ -71,7 +74,7 @@ const HomeHeader = ({
         ]}
       >
         {title}
-      </H1>
+      </HeaderComponent>
       <P
         style={[
           styles.infoText,

@@ -11,7 +11,7 @@ import {
   ViewStyle,
   useWindowDimensions,
 } from "react-native"
-import { H1, P } from "@expo/html-elements"
+import { H1, P, H2 } from "@expo/html-elements"
 import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
 import MobileNavBar, { MenuType } from "./MobileNavBar"
@@ -21,6 +21,7 @@ const { createAnimatedComponent } = Animated
 
 const AnimatedView = createAnimatedComponent(View)
 const AnimatedH1 = createAnimatedComponent(H1)
+const AnimatedH2 = createAnimatedComponent(H2)
 const AnimatedImage = createAnimatedComponent(Image)
 const AnimatedP = createAnimatedComponent(P)
 const AnimatedText = createAnimatedComponent(Text)
@@ -37,13 +38,16 @@ export type HeaderProps = {
   menu: MenuType[]
   copyright: string
   containerStyle?: StyleProp<ViewStyle>
+  isHeader?: boolean
 }
 
 const AnimatedTitle = ({
   interpolator,
   title,
+  isHeader = true,
 }: {
   title: string
+  isHeader?: boolean
   interpolator: (
     outputRange: [number, number],
     customInputRange?: [number, number] | undefined
@@ -61,8 +65,9 @@ const AnimatedTitle = ({
     setTitleHeight(titleTextHeight)
     setTitleWidth(titleTextWidth)
   }
+  const AnimatedHeader = isHeader ? AnimatedH1 : AnimatedH2
   return (
-    <AnimatedH1
+    <AnimatedHeader
       style={[
         styles.pageTitle,
         {
@@ -74,7 +79,7 @@ const AnimatedTitle = ({
       onLayout={onTitleLayout}
     >
       {title}
-    </AnimatedH1>
+    </AnimatedHeader>
   )
 }
 
@@ -85,6 +90,7 @@ const MobileHomeHeader = ({
   trivia,
   menu,
   copyright,
+  isHeader = true,
 }: HeaderProps) => {
   const triviaText = useRef(trivia[Math.floor(Math.random() * trivia.length)])
     .current
@@ -156,7 +162,11 @@ const MobileHomeHeader = ({
         ]}
         source={require("../../../assets/images/profile-pic.jpg")}
       />
-      <AnimatedTitle title={title} interpolator={interpolator} />
+      <AnimatedTitle
+        isHeader={isHeader}
+        title={title}
+        interpolator={interpolator}
+      />
       <AnimatedP style={[styles.infoText, { color: colors.color4 }, disapper]}>
         {info}
       </AnimatedP>

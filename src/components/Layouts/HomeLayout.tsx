@@ -22,9 +22,10 @@ const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
 export interface LayoutProps {
   children: ReactNode
+  isHeader?: boolean
 }
 
-const HomeLayout = ({ children }: LayoutProps) => {
+const HomeLayout = ({ children, isHeader = true }: LayoutProps) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -59,7 +60,11 @@ const HomeLayout = ({ children }: LayoutProps) => {
             { backgroundColor: colors.backgroundColor },
           ]}
         >
-          <HomeHeader containerStyle={styles.desktopHeader} {...siteMetadata} />
+          <HomeHeader
+            isHeader={isHeader}
+            containerStyle={styles.desktopHeader}
+            {...siteMetadata}
+          />
           <ScrollView contentContainerStyle={styles.desktopContentSection}>
             {children}
           </ScrollView>
@@ -92,6 +97,7 @@ const HomeLayout = ({ children }: LayoutProps) => {
             {children}
           </AnimatedScrollView>
           <MobileHomeHeader
+            isHeader={isHeader}
             {...siteMetadata}
             animatedValue={animatedScrollIndex}
           />

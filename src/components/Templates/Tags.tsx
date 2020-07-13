@@ -4,9 +4,10 @@ import PostSummary from "../Common/PostSummary"
 import BlankSpacer from "react-native-blank-spacer"
 import HomeLayout from "../Layouts/HomeLayout"
 import { graphql } from "gatsby"
-import { H2 } from "@expo/html-elements"
+import { H1 } from "@expo/html-elements"
 import useColors from "../../hooks/useColors"
-import { startCase } from "lodash"
+import { startCase, kebabCase } from "lodash"
+import { GatsbySeo, BreadcrumbJsonLd } from "gatsby-plugin-next-seo"
 
 const Tags = ({
   pageContext: { tag },
@@ -21,12 +22,65 @@ const Tags = ({
 
   const colors = useColors()
 
+  const tagName = startCase(tag)
+  const tagUrl = kebabCase(tag)
+
+  const { title, twitterHandle, homepage, menu } = data.site.siteMetadata
+
+  const pageTitle = `${tagName} | ${title}`
+
+  const description = `${title}'s posts tagged as ${tagName}`
+
   return (
-    <HomeLayout>
+    <HomeLayout isHeader={false}>
+      <GatsbySeo
+        title={pageTitle}
+        description={description}
+        canonical={homepage}
+        twitter={{
+          handle: twitterHandle,
+          site: twitterHandle,
+          cardType: "summary_large_image",
+        }}
+        openGraph={{
+          url: homepage,
+          title: pageTitle,
+          description,
+          images: [
+            {
+              url: homepage + require("../../assets/images/profile-pic.jpg"),
+              width: 460,
+              height: 460,
+              alt: "Dani Akash",
+            },
+            {
+              url: homepage + require("../../assets/images/favicon.png"),
+              width: 600,
+              height: 600,
+              alt: "Dani Akash",
+            },
+          ],
+          site_name: pageTitle,
+        }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: menu[0].label,
+            item: homepage + menu[0].path,
+          },
+          {
+            position: 2,
+            name: tagName,
+            item: homepage + tagUrl,
+          },
+        ]}
+      />
       <BlankSpacer height={48} />
-      <H2 style={[styles.categoryTitle, { color: colors.color2 }]}>
-        {`Posts tagged as "${startCase(tag)}"`}
-      </H2>
+      <H1 style={[styles.categoryTitle, { color: colors.color2 }]}>
+        {`Posts tagged as "${tagName}"`}
+      </H1>
       <BlankSpacer height={32} />
       {posts.map((post, i) => {
         return (
@@ -63,6 +117,19 @@ export const query = graphql`
             url
             path
           }
+        }
+      }
+    }
+    site {
+      siteMetadata {
+        homepage
+        twitterHandle
+        title
+        description
+        copyright
+        menu {
+          label
+          path
         }
       }
     }

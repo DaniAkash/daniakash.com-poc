@@ -4,9 +4,10 @@ import PostSummary from "../Common/PostSummary"
 import BlankSpacer from "react-native-blank-spacer"
 import HomeLayout from "../Layouts/HomeLayout"
 import { graphql } from "gatsby"
-import { H2 } from "@expo/html-elements"
+import { H1 } from "@expo/html-elements"
 import useColors from "../../hooks/useColors"
-import { startCase } from "lodash"
+import { startCase, kebabCase } from "lodash"
+import { GatsbySeo, BreadcrumbJsonLd } from "gatsby-plugin-next-seo"
 
 const Category = ({
   pageContext: { category },
@@ -21,12 +22,69 @@ const Category = ({
 
   const colors = useColors()
 
+  const categoryName = startCase(category)
+  const categoryUrl = "/" + kebabCase(category)
+
+  const {
+    title,
+    twitterHandle,
+    description,
+    homepage,
+    menu,
+  } = data.site.siteMetadata
+
+  const pageTitle = `${categoryName} | ${title}`
+
   return (
-    <HomeLayout>
+    <HomeLayout isHeader={false}>
+      <GatsbySeo
+        title={pageTitle}
+        description={description}
+        canonical={homepage}
+        twitter={{
+          handle: twitterHandle,
+          site: twitterHandle,
+          cardType: "summary_large_image",
+        }}
+        openGraph={{
+          url: homepage,
+          title: pageTitle,
+          description,
+          images: [
+            {
+              url: homepage + require("../../assets/images/profile-pic.jpg"),
+              width: 460,
+              height: 460,
+              alt: "Dani Akash",
+            },
+            {
+              url: homepage + require("../../assets/images/favicon.png"),
+              width: 600,
+              height: 600,
+              alt: "Dani Akash",
+            },
+          ],
+          site_name: pageTitle,
+        }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: menu[0].label,
+            item: homepage + menu[0].path,
+          },
+          {
+            position: 2,
+            name: categoryName,
+            item: homepage + categoryUrl,
+          },
+        ]}
+      />
       <BlankSpacer height={48} />
-      <H2 style={[styles.categoryTitle, { color: colors.color2 }]}>
-        {startCase(category)}
-      </H2>
+      <H1 style={[styles.categoryTitle, { color: colors.color2 }]}>
+        {categoryName}
+      </H1>
       <BlankSpacer height={32} />
       {posts.map((post, i) => {
         return (
@@ -63,6 +121,19 @@ export const query = graphql`
             url
             path
           }
+        }
+      }
+    }
+    site {
+      siteMetadata {
+        homepage
+        twitterHandle
+        title
+        description
+        copyright
+        menu {
+          label
+          path
         }
       }
     }
