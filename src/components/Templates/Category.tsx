@@ -25,29 +25,27 @@ const Category = ({
   const categoryName = startCase(category)
   const categoryUrl = "/" + kebabCase(category)
 
-  const {
-    title,
-    twitterHandle,
-    description,
-    homepage,
-    menu,
-  } = data.site.siteMetadata
+  const { title, twitterHandle, homepage, menu } = data.site.siteMetadata
 
   const pageTitle = `${categoryName} | ${title}`
+
+  const description = `${title}'s posts tagged under ${categoryName}`
+
+  const canonical = homepage + categoryUrl
 
   return (
     <HomeLayout isHeader={false}>
       <GatsbySeo
         title={pageTitle}
         description={description}
-        canonical={homepage}
+        canonical={canonical}
         twitter={{
           handle: twitterHandle,
           site: twitterHandle,
           cardType: "summary_large_image",
         }}
         openGraph={{
-          url: homepage,
+          url: canonical,
           title: pageTitle,
           description,
           images: [
@@ -77,7 +75,7 @@ const Category = ({
           {
             position: 2,
             name: categoryName,
-            item: homepage + categoryUrl,
+            item: canonical,
           },
         ]}
       />

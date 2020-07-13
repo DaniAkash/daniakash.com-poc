@@ -54,13 +54,14 @@ const Post = ({
 
   const pageTitle = `${title} | ${authorTitle}`
   const categoryUrl = "/" + kebabCase(category)
+  const canonical = homepage + path
 
   return (
     <PostLayout>
       <GatsbySeo
         title={pageTitle}
         description={description}
-        canonical={homepage}
+        canonical={canonical}
         twitter={{
           handle: twitterHandle,
           site: twitterHandle,
@@ -69,7 +70,7 @@ const Post = ({
         openGraph={{
           title,
           description,
-          url: homepage + path,
+          url: canonical,
           type: "article",
           article: {
             publishedTime: date,
@@ -89,7 +90,7 @@ const Post = ({
         }}
       />
       <BlogPostJsonLd
-        url={homepage + path}
+        url={canonical}
         title={title}
         images={
           [
@@ -116,7 +117,7 @@ const Post = ({
           {
             position: 3,
             name: title,
-            item: homepage + path,
+            item: canonical,
           },
         ]}
       />

@@ -74,19 +74,21 @@ const About = () => {
 
   const pageTitle = `About | ${title}`
 
+  const canonical = homepage + menu[1].path
+
   return (
     <HomeLayout>
       <GatsbySeo
         title={pageTitle}
         description={description}
-        canonical={homepage}
+        canonical={canonical}
         twitter={{
           handle: twitterHandle,
           site: twitterHandle,
           cardType: "summary_large_image",
         }}
         openGraph={{
-          url: homepage,
+          url: canonical,
           title: pageTitle,
           description,
           images: [

@@ -23,7 +23,7 @@ const Tags = ({
   const colors = useColors()
 
   const tagName = startCase(tag)
-  const tagUrl = kebabCase(tag)
+  const tagUrl = "/" + kebabCase(tag)
 
   const { title, twitterHandle, homepage, menu } = data.site.siteMetadata
 
@@ -31,19 +31,21 @@ const Tags = ({
 
   const description = `${title}'s posts tagged as ${tagName}`
 
+  const canonical = homepage + tagUrl
+
   return (
     <HomeLayout isHeader={false}>
       <GatsbySeo
         title={pageTitle}
         description={description}
-        canonical={homepage}
+        canonical={canonical}
         twitter={{
           handle: twitterHandle,
           site: twitterHandle,
           cardType: "summary_large_image",
         }}
         openGraph={{
-          url: homepage,
+          url: canonical,
           title: pageTitle,
           description,
           images: [
@@ -73,7 +75,7 @@ const Tags = ({
           {
             position: 2,
             name: tagName,
-            item: homepage + tagUrl,
+            item: canonical,
           },
         ]}
       />

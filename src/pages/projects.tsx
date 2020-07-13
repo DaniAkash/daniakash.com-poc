@@ -38,19 +38,21 @@ const Projects = () => {
 
   const pageTitle = `Projects | ${title}`
 
+  const canonical = homepage + menu[3].path
+
   return (
     <HomeLayout>
       <GatsbySeo
         title={pageTitle}
         description={description}
-        canonical={homepage}
+        canonical={canonical}
         twitter={{
           handle: twitterHandle,
           site: twitterHandle,
           cardType: "summary_large_image",
         }}
         openGraph={{
-          url: homepage,
+          url: canonical,
           title: pageTitle,
           description,
           images: [
@@ -80,7 +82,7 @@ const Projects = () => {
           {
             position: 2,
             name: menu[3].label,
-            item: homepage + menu[3].path,
+            item: canonical,
           },
         ]}
       />
