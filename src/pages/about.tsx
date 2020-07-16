@@ -130,9 +130,9 @@ const About = () => {
         <H2 style={[styles.welcomeTitle, { color: colors.color4 }]}>Hi!</H2>
         <P style={regularStyle}>
           <P style={[styles.boldText, { color: colors.color4 }]}>I'm Dani</P>, I
-          build & teach people build quality software. I mostly do programming
-          work but I also love to mentor people, write, travel & plan fun
-          projects over the weekend
+          build & teach people to build quality software. I mostly do
+          programming work but I also love to write, travel & plan fun projects
+          over the weekend
         </P>
         <P style={regularStyle}>
           I do lots of{" "}
@@ -155,7 +155,7 @@ const About = () => {
           </NativeLink>
           . Most of my work is based on the React & React Native ecosystem but I
           can work relatively well with other JavaScript libraries & frameworks
-          too
+          too! 😁
         </P>
         <P style={regularStyle}>
           Checkout my tech blog{" "}
