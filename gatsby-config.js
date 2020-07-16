@@ -57,6 +57,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-68170977-4",
+        head: true,
+      },
+    },
+    {
       resolve: "gatsby-plugin-zopfli",
       options: {
         extensions: ["css", "html", "js", "svg"],
