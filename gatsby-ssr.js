@@ -13,7 +13,6 @@ import {
 } from "./src/LayoutEngine/PrimaryLayout"
 import MagicScriptTag from "./src/components/MagicScriptTag"
 import "./src/assets/styles/global.css"
-import "typeface-roboto"
 import "typeface-roboto-mono"
 
 export const wrapRootElement = ({ element }) => {
