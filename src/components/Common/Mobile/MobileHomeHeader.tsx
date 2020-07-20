@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   Animated,
-  Image,
   LayoutChangeEvent,
   Text,
   TouchableOpacity,
@@ -16,13 +15,14 @@ import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
 import { MenuType } from "./MobileNavBar"
 import MobileHamburgerMenu from "./MobileHamburgerMenu"
+import Img from "gatsby-image"
+import { useStaticQuery, graphql } from "gatsby"
 
 const { createAnimatedComponent } = Animated
 
 const AnimatedView = createAnimatedComponent(View)
 const AnimatedH1 = createAnimatedComponent(H1)
 const AnimatedH2 = createAnimatedComponent(H2)
-const AnimatedImage = createAnimatedComponent(Image)
 const AnimatedP = createAnimatedComponent(P)
 const AnimatedText = createAnimatedComponent(Text)
 
@@ -39,6 +39,11 @@ export type HeaderProps = {
   copyright: string
   containerStyle?: StyleProp<ViewStyle>
   isHeader?: boolean
+}
+
+const profilePicStyle = {
+  height: "100%",
+  width: "100%",
 }
 
 const AnimatedTitle = ({
@@ -92,6 +97,23 @@ const MobileHomeHeader = ({
   copyright,
   isHeader = true,
 }: HeaderProps) => {
+  const query = useStaticQuery(graphql`
+    query MobileProfilePicQuery {
+      file(relativePath: { eq: "profile-pic.jpg" }) {
+        id
+        childImageSharp {
+          fluid {
+            base64
+            aspectRatio
+            sizes
+            src
+            srcSet
+          }
+        }
+      }
+    }
+  `)
+
   const triviaText = useRef(trivia[Math.floor(Math.random() * trivia.length)])
     .current
   const range = [0, HEADER_HEIGHT]
@@ -133,9 +155,7 @@ const MobileHomeHeader = ({
         onPress={toggleHamburger}
         style={[styles.hamburgerClicked]}
       >
-        <AnimatedText
-          style={[styles.hamburgerText, { fontSize: 24, color: colors.color4 }]}
-        >
+        <AnimatedText style={[styles.hamburgerText, { color: colors.color4 }]}>
           ☰
         </AnimatedText>
       </TouchableOpacity>
@@ -145,8 +165,7 @@ const MobileHomeHeader = ({
           { backgroundColor: colors.backgroundColor },
         ]}
       />
-      {/** TODO: Make Animated Image fluid */}
-      <AnimatedImage
+      <AnimatedView
         style={[
           styles.profilePic,
           {
@@ -157,8 +176,14 @@ const MobileHomeHeader = ({
             top: interpolator([40, 12]),
           },
         ]}
-        source={require("../../../assets/images/profile-pic.jpg")}
-      />
+      >
+        <Img
+          style={profilePicStyle}
+          fluid={query.file.childImageSharp.fluid}
+          alt="dani-akash"
+          loading="eager"
+        />
+      </AnimatedView>
       <AnimatedTitle
         isHeader={isHeader}
         title={title}
@@ -228,6 +253,7 @@ const styles = StyleSheet.create({
   },
   profilePic: {
     position: "absolute",
+    overflow: "hidden",
   },
   headerBar: {
     position: "absolute",

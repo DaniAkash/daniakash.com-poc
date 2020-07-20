@@ -11,6 +11,12 @@ import BlankSpacer from "react-native-blank-spacer"
 import CopyrightText from "./CopyrightText"
 import { ResponsiveView } from "../../LayoutEngine/PrimaryLayout"
 
+const profilePicStyle = {
+  height: "175px",
+  width: "175px",
+  borderRadius: "24px",
+}
+
 const HomeHeader = ({
   title,
   info,
@@ -41,12 +47,6 @@ const HomeHeader = ({
   `)
 
   const colors = useColors()
-
-  const profilePicStyle = {
-    height: "175px",
-    width: "175px",
-    borderRadius: "24px",
-  }
 
   const HeaderComponent = isHeader ? H1 : H2
 
