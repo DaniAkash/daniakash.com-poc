@@ -14,7 +14,7 @@ import {
 import { H1, P, H2 } from "@expo/html-elements"
 import { HERO_FONT, READING_FONT } from "../../../assets/styles/fonts"
 import useColors from "../../../hooks/useColors"
-import MobileNavBar, { MenuType } from "./MobileNavBar"
+import { MenuType } from "./MobileNavBar"
 import MobileHamburgerMenu from "./MobileHamburgerMenu"
 
 const { createAnimatedComponent } = Animated
@@ -26,7 +26,7 @@ const AnimatedImage = createAnimatedComponent(Image)
 const AnimatedP = createAnimatedComponent(P)
 const AnimatedText = createAnimatedComponent(Text)
 
-export const HEADER_HEIGHT = 280
+export const HEADER_HEIGHT = 200
 export const STICKY_HEADER_HEIGHT = 48
 
 export type HeaderProps = {
@@ -72,7 +72,7 @@ const AnimatedTitle = ({
         styles.pageTitle,
         {
           left: interpolator([16 + 24 + 90, screenWidth / 2 - titleWidth / 2]),
-          top: interpolator([24, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
+          top: interpolator([45, (STICKY_HEADER_HEIGHT - titleHeight) / 2]),
           color: colors.color4,
         },
       ]}
@@ -134,10 +134,7 @@ const MobileHomeHeader = ({
         style={[styles.hamburgerClicked]}
       >
         <AnimatedText
-          style={[
-            styles.hamburgerText,
-            { fontSize: interpolator([0, 24]), color: colors.color4 },
-          ]}
+          style={[styles.hamburgerText, { fontSize: 24, color: colors.color4 }]}
         >
           ☰
         </AnimatedText>
@@ -157,7 +154,7 @@ const MobileHomeHeader = ({
             width: interpolator([90, 24]),
             borderRadius: interpolator([24, 4]),
             left: interpolator([24, 16]),
-            top: interpolator([24, 12]),
+            top: interpolator([40, 12]),
           },
         ]}
         source={require("../../../assets/images/profile-pic.jpg")}
@@ -183,9 +180,6 @@ const MobileHomeHeader = ({
       >
         {triviaText}
       </AnimatedP>
-      <AnimatedView style={[styles.navbar, disapper]}>
-        <MobileNavBar menu={menu} />
-      </AnimatedView>
       <MobileHamburgerMenu
         toggleHamburger={toggleHamburger}
         isVisible={hamburgerActive}
@@ -218,7 +212,7 @@ const styles = StyleSheet.create({
     fontSize: "0.8rem",
     left: 16 + 24 + 90,
     marginVertical: 0,
-    top: 24 + 8 + 48,
+    top: 45 + 8 + 48,
   },
   triviaText: {
     position: "absolute",
@@ -228,7 +222,7 @@ const styles = StyleSheet.create({
     fontWeight: 300,
     textAlign: "center",
     marginVertical: 0,
-    top: 24 + 36 + 90,
+    top: 40 + 36 + 90,
     width: "100vw",
     paddingHorizontal: 24,
   },
@@ -249,10 +243,6 @@ const styles = StyleSheet.create({
   hamburgerText: {
     fontSize: 24,
     marginTop: -2,
-  },
-  navbar: {
-    position: "absolute",
-    top: 24 + 24 + 90 + 72,
   },
 })
 
