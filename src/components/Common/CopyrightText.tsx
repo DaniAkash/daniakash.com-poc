@@ -20,7 +20,7 @@ const CopyrightText = ({ copyright }: { copyright: string }) => {
           <GatsbyIcon />
         </View>
       </NativeLink>
-      <P style={[styles.copyrightText, { color: colors.color4 }]}>{" , "}</P>
+      <P style={[styles.copyrightText, { color: colors.color4 }]}> </P>
       <NativeLink openNewTab url={"https://reactnative.dev/"}>
         <View style={styles.iconWrapper}>
           <ReactNativeIcon />

@@ -57,6 +57,10 @@ module.exports = {
         label: "Projects",
         path: "/projects",
       },
+      {
+        label: "RSS",
+        path: "https://daniakash.com/rss.xml",
+      },
     ],
   },
   plugins: [
@@ -186,7 +190,8 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "Your Site's RSS Feed",
+            title: "Dani Akash",
+            link: "https://daniakash.com/",
           },
         ],
       },
