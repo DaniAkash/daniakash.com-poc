@@ -5,6 +5,7 @@ module.exports = {
     description: `Dani Akash is a JavaScript developer from Chennai who builds mobile and web applications with React. While he is not coding, he teaches people how to code. He spends his free time building open-source projects and writing blogs.`,
     twitterHandle: `@dani_akash_`,
     homepage: `https://daniakash.com`,
+    siteUrl: `https://daniakash.com`,
     links: {
       github: `https://github.com/DaniAkash`,
       trello: `https://trello.com/b/1zB34Jab/whats-dani-upto`,
@@ -110,6 +111,7 @@ module.exports = {
         path: `${__dirname}/posts`,
       },
     },
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-lodash`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
